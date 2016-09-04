@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  apluscurator:
+    image: username/apluscurator
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
