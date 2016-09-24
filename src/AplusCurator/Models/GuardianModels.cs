@@ -47,6 +47,5 @@ namespace AplusCurator.Models
 
         [StringLength(99999)]
         public string SystemInfo { get; set; }
-
     }
 }
