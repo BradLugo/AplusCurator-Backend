@@ -3,24 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using AplusCurator.Models;
+
+// For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AplusCurator.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class InstructorsController : Controller
     {
+        private InstructorDbContext _context;
 
-
-        public ValuesController()
+        public InstructorsController(InstructorDbContext DbContex)
         {
-
+            this._context = DbContex;
         }
-
-        // GET api/values
+        
+        // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public JsonResult Get()
         {
-            return new string[] { "value1", "value2" };
+  
+                var result = new JsonResult(_context.Instructors.ToList());
+
+                return result;
+ 
         }
 
         // GET api/values/5
