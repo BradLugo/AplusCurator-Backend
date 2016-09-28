@@ -53,6 +53,11 @@ namespace AplusCurator
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<InstructorDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetService<InstructorDbContext>().EnsureSeedData();
+            }
 
             app.UseApplicationInsightsRequestTelemetry();
 

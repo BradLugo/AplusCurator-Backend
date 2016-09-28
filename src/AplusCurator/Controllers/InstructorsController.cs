@@ -23,11 +23,8 @@ namespace AplusCurator.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-  
-                var result = new JsonResult(_context.Instructors.ToList());
-
-                return result;
- 
+            var result = new JsonResult(_context.Instructors.ToList());
+            return result;
         }
 
         // GET api/values/5
