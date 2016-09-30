@@ -19,7 +19,7 @@ namespace AplusCurator.Controllers
             this._context = DbContex;
         }
         
-        // GET: api/values
+        // GET: api/instructors
         [HttpGet]
         public JsonResult Get()
         {
@@ -27,12 +27,21 @@ namespace AplusCurator.Controllers
             return result;
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/instructors/5
+        [HttpGet("id/{id}")]
+        public JsonResult Get(int id)
         {
-            return "value";
+            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.InstructorId == id));
+            return result;
         }
+        // GET api/instructors/name
+        [HttpGet("name/{name}")]
+        public JsonResult Get(string name)
+        {
+            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper())) );
+            return result;
+        }
+
 
         // POST api/values
         [HttpPost]
