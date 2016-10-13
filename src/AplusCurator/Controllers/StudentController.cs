@@ -19,7 +19,7 @@ namespace AplusCurator.Controllers
             this._context = DbContex;
         }
 
-        // GET: api/students
+        // GET: api/student
         [HttpGet]
         public JsonResult GetAll()
         {
@@ -27,14 +27,14 @@ namespace AplusCurator.Controllers
             return result;
         }
 
-        // GET api/students/5
+        // GET api/student/5
         [HttpGet("id/{id}")]
         public JsonResult GetById(int id)
         {
             var result = new JsonResult(_context.Students.ToList().Where(w => w.StudentId == id));
             return result;
         }
-        // GET api/students/name/John
+        // GET api/student/name/John
         [HttpGet("name/{name}")]
         public JsonResult GetByName(string name)
         {
@@ -42,7 +42,7 @@ namespace AplusCurator.Controllers
             return result;
         }
 
-        // GET api/students/status/1
+        // GET api/student/status/1
         [HttpGet("status/{status}")]
         public JsonResult GetByStatus(int status)
         {

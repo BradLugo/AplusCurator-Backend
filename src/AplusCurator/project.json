@@ -19,7 +19,9 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
-    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0"
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "AplusCurator.Contracts": { "target": "project" },
+    "MySql.Data.EntityFrameworkCore": "7.0.5-IR21"
   },
   "frameworks": {
     "netcoreapp1.0": {

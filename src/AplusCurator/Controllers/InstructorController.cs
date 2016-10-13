@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AplusCurator.Models;
 
@@ -14,53 +12,54 @@ namespace AplusCurator.Controllers
     {
         private InstructorDbContext _context;
 
-        public InstructorController(InstructorDbContext DbContex)
+        public InstructorController(InstructorDbContext Repository)
         {
-            this._context = DbContex;
+            this._context = Repository;
         }
         
-        // GET: api/instructors
+        // GET: api/instructor
         [HttpGet]
-        public JsonResult GetAll()
+        public IEnumerable<Instructor> Get()
         {
-            var result = new JsonResult(_context.Instructors.ToList());
+            var result = _context.Instructors;
             return result;
         }
 
-        // GET api/instructors/5
+        // GET api/instructor/5
         [HttpGet("id/{id}")]
-        public JsonResult GetById(int id)
+        public IEnumerable<Instructor> GetById(int id)
         {
-            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.InstructorId == id));
+            var result = _context.Instructors.Where(w => w.InstructorId == id);
             return result;
         }
-        // GET api/instructors/name/John
+        // GET api/instructor/name/John
         [HttpGet("name/{name}")]
-        public JsonResult GetByName(string name)
+        public IEnumerable<Instructor> GetByName(string name)
         {
-            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper())) );
+            var result = _context.Instructors.Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper()));
             return result;
         }
-        // GET api/instructors/role/1
+        // GET api/instructor/role/1
         [HttpGet("role/{role}")]
-        public JsonResult GetByRole(int role)
+        public IEnumerable<Instructor> GetByRole(int role)
         {
-            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.Role == role));
+            var result = _context.Instructors.Where(w => w.Role == role);
             return result;
         }
-        // GET api/instructors/status/1
+        // GET api/instructor/status/1
         [HttpGet("status/{status}")]
-        public JsonResult GetByStatus(int status)
+        public IEnumerable<Instructor> GetByStatus(int status)
         {
-            var result = new JsonResult(_context.Instructors.ToList().Where(w => w.Status == status));
+            var result = _context.Instructors.Where(w => w.Status == status);
             return result;
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("delete/{id}")]
+        public void Delete([FromBody]int id)
         {
-
+            _context.Remove(_context.Instructors.Where(w => w.InstructorId == id));
+            _context.SaveChanges();
         }
 
         // PUT api/values/5
@@ -70,11 +69,5 @@ namespace AplusCurator.Controllers
 
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
-        }
     }
 }

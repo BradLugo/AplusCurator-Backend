@@ -50,7 +50,7 @@ namespace AplusCurator.Models
         // View model needs attachment type, SQL DB will have a table for attachements with secondary key on Id
 
     }
-
+    // May not be usefull in our case
     public class InstructorViewModel
     {
 
