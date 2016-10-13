@@ -9,6 +9,9 @@ using Xunit;
 
 namespace AplusCurator.Tests.Controllers
 {
+    /// <summary>
+    /// Instructor Controller testing class
+    /// </summary>
     public class InstructorControllerTests
     {
         private InstructorDbContext _context;
@@ -17,14 +20,25 @@ namespace AplusCurator.Tests.Controllers
         [Fact]
         public void CanGetInstructors()
         {
+            // Seed the new context on each test to ensure a clean test environment
             _context = CreateAndSeedContext();
+
+            // New up the controller
             using (var controller = new InstructorController(_context))
             {
+                // Perform some work in here
                 var results = controller.Get();
+
+                // Assert that the work was completed correctly
                 Assert.Equal(8, results.Count());
             }
         }
 
+        /// <summary>
+        /// Used to create a database in memory for use by the testing framework.
+        /// The created database does not have a SQL connection but rather is simply in memory.
+        /// </summary>
+        /// <returns> The in memory Db context </returns>
         private InstructorDbContext CreateAndSeedContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<InstructorDbContext>();
@@ -38,6 +52,11 @@ namespace AplusCurator.Tests.Controllers
             return inMemoryContext;
         }
 
+
+        /// <summary>
+        /// Used by the CreateAndSeedContext method to get an array of instructors
+        /// </summary>
+        /// <returns> Array of intructor seed data </returns>
         private Instructor[] GetInstructors()
         {
             Instructor[] newInstructors = {
