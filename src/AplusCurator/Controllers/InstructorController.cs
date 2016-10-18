@@ -55,7 +55,7 @@ namespace AplusCurator.Controllers
         }
 
         // POST api/values
-        [HttpPost("delete/{id}")]
+        [HttpPost("delete")]
         public void Delete([FromBody]int id)
         {
             _context.Remove(_context.Instructors.Where(w => w.InstructorId == id));
