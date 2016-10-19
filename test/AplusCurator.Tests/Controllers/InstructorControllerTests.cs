@@ -166,9 +166,35 @@ namespace AplusCurator.Tests.Controllers
         #region Instructor validation tests
 
         [Fact]
-        public void IsInstructorWithoutFirstNameNotValid()
+        public void IsInstructorWithAllValid()
         {
             // This instructor is missing a phone number
+            var instructor = new Instructor { FirstName = "Michale",
+                    LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd."
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "The po-po"
+                    , EmergencyContactPhone = "1800-call-911"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorWithoutFirstNameNotValid()
+        {
+            // This instructor is missing a first name
             var instructor = new Instructor { 
                     LastName = "This"
                     , MiddleName = "Isa"
@@ -356,6 +382,32 @@ namespace AplusCurator.Tests.Controllers
                     , EmergencyContactPhone = "1800-call-911"
                     , Role = 0
                     , Status = 0
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorWithLargeFirstNameValid()
+        {
+            // This instructor is missing a phone number
+            var instructor = new Instructor { FirstName = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd."
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "The po-po"
+                    , EmergencyContactPhone = "1800-call-911"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
                     , EmploymentTerminationDate = DateTime.Now };
 
             // Try to validate the object
