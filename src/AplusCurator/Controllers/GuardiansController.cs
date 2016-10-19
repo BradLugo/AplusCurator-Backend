@@ -10,11 +10,11 @@ using AplusCurator.Models;
 namespace AplusCurator.Controllers
 {
     [Route("api/[controller]")]
-    public class GuardianController : Controller
+    public class GuardiansController : Controller
     {
         private GuardianDbContext _context;
 
-        public GuardianController(GuardianDbContext DbContex)
+        public GuardiansController(GuardianDbContext DbContex)
         {
             this._context = DbContex;
         }
