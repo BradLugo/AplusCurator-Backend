@@ -25,7 +25,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.Get();
@@ -41,7 +41,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.GetById(1);
@@ -58,7 +58,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.GetByName("Michael");
@@ -75,7 +75,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.GetByRole(1);
@@ -91,7 +91,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.GetByStatus(1);
@@ -108,7 +108,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
@@ -138,7 +138,7 @@ namespace AplusCurator.Tests.Controllers
             _context = CreateAndSeedContext();
 
             // New up the controller
-            using (var controller = new InstructorController(_context))
+            using (var controller = new InstructorsController(_context))
             {
                 // Perform some work in here
                 var results = controller.CreateFromForm( new Instructor { FirstName = "Atest"
