@@ -43,7 +43,11 @@ namespace AplusCurator
             // Add database services
             var connection = @"Server=(localdb)\mssqllocaldb;Database=APCurator.NewDb;Trusted_Connection=True;";
             services.AddDbContext<InstructorDbContext>(options => options.UseSqlServer(connection));
-            services.AddMvc();
+            services.AddMvc()
+                    .AddJsonOptions(jsonOptions =>
+                    {
+                        jsonOptions.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    });
             
         }
 

@@ -7,7 +7,7 @@ namespace AplusCurator.Models
     public class Instructor
     {
         [Key]
-        public int InstructorId { get; set; }
+        public int? InstructorId { get; set; }
 
         [StringLength(127), Required]
         public string FirstName { get; set; }
