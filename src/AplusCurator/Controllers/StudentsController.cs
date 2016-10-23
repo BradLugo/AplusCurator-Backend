@@ -19,34 +19,34 @@ namespace AplusCurator.Controllers
             this._context = DbContex;
         }
 
-        // GET: api/student
+        // GET: api/students
         [HttpGet]
-        public JsonResult GetAll()
+        public IEnumerable<Student> Get()
         {
-            var result = new JsonResult(_context.Students.ToList());
+            var result = _context.Students.ToList();
             return result;
         }
 
         // GET api/student/5
         [HttpGet("id/{id}")]
-        public JsonResult GetById(int id)
+        public IEnumerable<Student> GetById(int id)
         {
-            var result = new JsonResult(_context.Students.ToList().Where(w => w.StudentId == id));
+            var result = _context.Students.ToList().Where(w => w.StudentId == id);
             return result;
         }
         // GET api/student/name/John
         [HttpGet("name/{name}")]
-        public JsonResult GetByName(string name)
+        public IEnumerable<Student> GetByName(string name)
         {
-            var result = new JsonResult(_context.Students.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper())));
+            var result =_context.Students.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper()));
             return result;
         }
 
         // GET api/student/status/1
         [HttpGet("status/{status}")]
-        public JsonResult GetByStatus(int status)
+        public IEnumerable<Student> GetByStatus(int status)
         {
-            var result = new JsonResult(_context.Students.ToList().Where(w => w.Status == status));
+            var result = _context.Students.ToList().Where(w => w.Status == status);
             return result;
         }
 
@@ -66,6 +66,83 @@ namespace AplusCurator.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        // POST api/students/delete
+        [HttpPost("body/delete")]
+        public IActionResult DeleteFromBody([FromBody]Student student)
+        {
+            return DeleteStudent(student);
+        }
+
+
+
+        // POST api/students/delete
+        [HttpPost("form/delete")]
+        public IActionResult DeleteFromForm(Student student)
+        {
+            return DeleteStudent(student);
+        }
+
+        private IActionResult DeleteStudent(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                // Throw exception if student doesn't exist
+                //_context.Students.Where(w => w.StudentId == student.StudentId).Single();
+
+                _context.Remove(student);
+
+                _context.SaveChanges();
+            }
+            return Json(student);
+        }
+
+        /// <summary>
+        /// http post request for creating a new student object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses a json body
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        /// Body must be a single student json object
+        /// POST api/student/create
+        [HttpPost("body/create")]
+        public IActionResult CreateFromBody([FromBody]Student student)
+        {
+            return CreateStudent(student);
+        }
+
+        /// <summary>
+        /// http post request for creating a new student object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses form data
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        /// Data must be from a form request
+        /// POST api/student/create
+        [HttpPost("form/create")]
+        public IActionResult CreateFromForm(Student student)
+        {
+            return CreateStudent(student);
+        }
+
+        /// <summary>
+        /// Method used by the Create and CreateFromBody methods to add an Student to 
+        /// the Database
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        private IActionResult CreateStudent(Student student)
+        {
+            if (ModelState.IsValid && student != null)
+            {
+
+                _context.Add(student);
+                _context.SaveChanges();
+            }
+            return Json(student);
         }
     }
 }
