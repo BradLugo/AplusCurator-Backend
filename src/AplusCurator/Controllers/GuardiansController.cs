@@ -10,16 +10,16 @@ using AplusCurator.Models;
 namespace AplusCurator.Controllers
 {
     [Route("api/[controller]")]
-    public class GuardianController : Controller
+    public class GuardiansController : Controller
     {
         private GuardianDbContext _context;
 
-        public GuardianController(GuardianDbContext DbContex)
+        public GuardiansController(GuardianDbContext DbContex)
         {
             this._context = DbContex;
         }
 
-        // GET: api/suardians
+        // GET: api/student
         [HttpGet]
         public JsonResult GetAll()
         {
@@ -27,28 +27,28 @@ namespace AplusCurator.Controllers
             return result;
         }
 
-        // GET api/suardians/5
+        // GET api/student/5
         [HttpGet("id/{id}")]
         public JsonResult GetById(int id)
         {
             var result = new JsonResult(_context.Guardians.ToList().Where(w => w.GuardianId == id));
             return result;
         }
-        // GET api/suardians/name/John
+        // GET api/student/name/John
         [HttpGet("name/{name}")]
         public JsonResult GetByName(string name)
         {
             var result = new JsonResult(_context.Guardians.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper())));
             return result;
         }
-        // GET api/suardians/role/1
+        // GET api/student/role/1
         [HttpGet("role/{role}")]
         public JsonResult GetByRole(int role)
         {
             var result = new JsonResult(_context.Guardians.ToList().Where(w => w.Role == role));
             return result;
         }
-        // GET api/suardians/status/1
+        // GET api/student/status/1
         [HttpGet("status/{status}")]
         public JsonResult GetByStatus(int status)
         {

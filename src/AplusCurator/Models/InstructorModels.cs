@@ -37,20 +37,20 @@ namespace AplusCurator.Models
         public string EmergencyContactPhone { get; set; }
 
         [Required]
-        public int Role { get; set; }
+        public int? Role { get; set; }
 
         [Required]
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         [Required]
-        public DateTime EmploymentStartDate { get; set; }
+        public DateTime? EmploymentStartDate { get; set; }
 
-        public DateTime EmploymentTerminationDate { get; set; }
+        public DateTime? EmploymentTerminationDate { get; set; }
 
         // View model needs attachment type, SQL DB will have a table for attachements with secondary key on Id
 
     }
-
+    // May not be usefull in our case
     public class InstructorViewModel
     {
 
