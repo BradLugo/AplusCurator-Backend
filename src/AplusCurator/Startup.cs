@@ -52,6 +52,8 @@ namespace AplusCurator
             // Add database services
             var connection = @"Server=(localdb)\mssqllocaldb;Database=APCurator.NewDb;Trusted_Connection=True;";
             services.AddDbContext<InstructorDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<StudentDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<GuardianDbContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc()
                     .AddJsonOptions(jsonOptions =>
@@ -71,6 +73,8 @@ namespace AplusCurator
             {
                 serviceScope.ServiceProvider.GetService<InstructorDbContext>().Database.Migrate();
                 serviceScope.ServiceProvider.GetService<InstructorDbContext>().EnsureSeedData();
+                serviceScope.ServiceProvider.GetService<StudentDbContext>().Database.Migrate();
+                serviceScope.ServiceProvider.GetService<StudentDbContext>().EnsureSeedData();
             }
 
             app.UseCors("CorsPolicy");
