@@ -107,6 +107,52 @@ namespace AplusCurator.Controllers
         /// <returns></returns>
         /// Body must be a single student json object
         /// POST api/student/create
+        [HttpPost("body/update")]
+        public IActionResult UpdateFromBody([FromBody]Student student)
+        {
+            return UpdateStudent(student);
+        }
+
+        /// <summary>
+        /// http post request for creating a new student object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses form data
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        /// Data must be from a form request
+        /// POST api/student/create
+        [HttpPost("form/update")]
+        public IActionResult UpdateFromForm(Student student)
+        {
+            return UpdateStudent(student);
+        }
+
+        /// <summary>
+        /// Method used by the Create and CreateFromBody methods to add an Student to 
+        /// the Database
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        private IActionResult UpdateStudent(Student student)
+        {
+            if (ModelState.IsValid && student != null)
+            {
+                _context.Update(student);
+                _context.SaveChanges();
+            }
+            return Json(student);
+        }
+
+        /// <summary>
+        /// http post request for creating a new student object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses a json body
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        /// Body must be a single student json object
+        /// POST api/student/create
         [HttpPost("body/create")]
         public IActionResult CreateFromBody([FromBody]Student student)
         {
