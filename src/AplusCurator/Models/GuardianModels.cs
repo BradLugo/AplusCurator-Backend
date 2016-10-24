@@ -26,7 +26,7 @@ namespace AplusCurator.Models
         public string MobileNumber { get; set; }
 
         [Required]
-        public int Role { get; set; }
+        public int? Role { get; set; }
 
         [StringLength(127), Required]
         public string ContactName { get; set; }
@@ -34,7 +34,7 @@ namespace AplusCurator.Models
         [StringLength(127), Required]
         public string ContactNumber { get; set; }
 
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         [StringLength(99999)]
         public string Description { get; set; }
