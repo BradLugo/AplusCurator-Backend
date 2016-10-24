@@ -21,7 +21,7 @@ namespace AplusCurator.Controllers
 
         // GET: api/student
         [HttpGet]
-        public IEnumerable<Guardian> GetAll()
+        public IEnumerable<Guardian> Get()
         {
             var result = _context.Guardians.ToList();
             return result;
