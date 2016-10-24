@@ -1,6 +1,7 @@
 ﻿using AplusCurator.Controllers;
 using AplusCurator.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -428,10 +429,20 @@ namespace AplusCurator.Tests.Controllers
         /// <returns> The in memory Db context </returns>
         private InstructorDbContext CreateAndSeedContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<InstructorDbContext>();
-            optionsBuilder.UseInMemoryDatabase();
+            // Create a fresh service provider, and therefore a fresh 
+            // InMemory database instance.
+            var serviceProvider = new ServiceCollection()
+               .AddEntityFrameworkInMemoryDatabase()
+               .BuildServiceProvider();
 
-            var inMemoryContext = new InstructorDbContext(optionsBuilder.Options);
+            var builder = new DbContextOptionsBuilder<InstructorDbContext>();
+            builder.UseInMemoryDatabase()
+                   .UseInternalServiceProvider(serviceProvider);
+
+         //   var optionsBuilder = new DbContextOptionsBuilder<InstructorDbContext>();
+         //   optionsBuilder.UseInMemoryDatabase();
+
+            var inMemoryContext = new InstructorDbContext(builder.Options);
             inMemoryContext.Database.EnsureDeleted();
             inMemoryContext.Database.EnsureCreated();
             inMemoryContext.Instructors.AddRange(GetInstructors());

@@ -1,6 +1,7 @@
 ﻿using AplusCurator.Controllers;
 using AplusCurator.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -160,8 +161,111 @@ namespace AplusCurator.Tests.Controllers
                 Status = 0,
                 SystemInfo = "Info here"
             };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankFirstName()
+        {
+            //This student with first name blank
+            var student = new Student
+            {
+                FirstName = "",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankLastName()
+        {
+            //This student last name blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankDateOfBirth()
+        {
+            //This student date of birth blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankGender()
+        {
+            //This student gender blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
         }
         #endregion
+
+
 
         #region Helper methods
         /// <summary>
@@ -171,10 +275,20 @@ namespace AplusCurator.Tests.Controllers
         /// <returns> The in memory Db context </returns>
         private StudentDbContext CreateAndSeedContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<StudentDbContext>();
-            optionsBuilder.UseInMemoryDatabase();
+            // Create a fresh service provider, and therefore a fresh 
+            // InMemory database instance.
+            var serviceProvider = new ServiceCollection()
+                .AddEntityFrameworkInMemoryDatabase()
+                .BuildServiceProvider();
 
-            var inMemoryContext = new StudentDbContext(optionsBuilder.Options);
+            var builder = new DbContextOptionsBuilder<StudentDbContext>();
+            builder.UseInMemoryDatabase()
+                   .UseInternalServiceProvider(serviceProvider);
+            
+          //  var optionsBuilder = new DbContextOptionsBuilder<StudentDbContext>();
+        //    optionsBuilder.UseInMemoryDatabase();
+
+            var inMemoryContext = new StudentDbContext(builder.Options);
             inMemoryContext.Database.EnsureDeleted();
             inMemoryContext.Database.EnsureCreated();
             inMemoryContext.Students.AddRange(GetStudents());
