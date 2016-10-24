@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using AplusCurator.Models;
+using System;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,13 +55,34 @@ namespace AplusCurator.Controllers
             return result;
         }
 
-        // POST api/values
-        [HttpPost("delete")]
-        public void Delete([FromBody]int id)
+        // POST api/instructors/delete
+        [HttpPost("body/delete")]
+        public IActionResult DeleteFromBody([FromBody]Instructor instructor)
         {
-            // issue: id not being populated by json body
-            _context.Remove(_context.Instructors.Where(w => w.InstructorId == id));
-            _context.SaveChanges();
+            return DeleteInstructor(instructor);
+        }
+
+
+
+        // POST api/instructors/delete
+        [HttpPost("form/delete")]
+        public IActionResult DeleteFromForm(Instructor instructor)
+        {
+            return DeleteInstructor(instructor);
+        }
+
+        private IActionResult DeleteInstructor(Instructor instructor)
+        {
+            if (ModelState.IsValid)
+            {
+                // Throw exception if instructor doesn't exist
+                //_context.Instructors.Where(w => w.InstructorId == instructor.InstructorId).Single();
+
+                _context.Remove(instructor);
+
+                _context.SaveChanges();
+            }
+            return Json(instructor);
         }
 
         /// <summary>
@@ -72,7 +94,7 @@ namespace AplusCurator.Controllers
         /// <returns></returns>
         /// Body must be a single instructor json object
         /// POST api/instructor/create
-        [HttpPost("create")]
+        [HttpPost("body/create")]
         public IActionResult CreateFromBody([FromBody]Instructor instructor)
         {
             return CreateInstructor(instructor);
@@ -87,7 +109,7 @@ namespace AplusCurator.Controllers
         /// <returns></returns>
         /// Data must be from a form request
         /// POST api/instructor/create
-        [HttpPost("create")]
+        [HttpPost("form/create")]
         public IActionResult CreateFromForm(Instructor instructor)
         {
             return CreateInstructor(instructor);
