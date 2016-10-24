@@ -21,15 +21,15 @@ namespace AplusCurator.Models
         public string LastName { get; set; }
 
         [Column(TypeName = "Date"), Required]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [Required]
-        public int Gender { get; set; }
+        public int? Gender { get; set; }
 
         [Required]
-        public int CurrentGrade { get; set; }
+        public int? CurrentGrade { get; set; }
 
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         [StringLength(99999)]
         public string Description { get; set; }

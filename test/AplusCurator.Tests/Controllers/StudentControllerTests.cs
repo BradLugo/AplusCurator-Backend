@@ -263,6 +263,101 @@ namespace AplusCurator.Tests.Controllers
 
             Assert.False(isModelsStateValid);
         }
+
+
+        [Fact]
+        public void IsStudentWithBlankGrade()
+        {
+            //This student grade blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankStatus()
+        {
+            //This student status blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankDescription()
+        {
+            //This student description blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "",
+                Status = 1,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithBlankSystemInfo()
+        {
+            //This student system info blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 1,
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
         #endregion
 
 
