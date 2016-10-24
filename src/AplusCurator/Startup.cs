@@ -39,10 +39,20 @@ namespace AplusCurator
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
 
             // Add database services
             var connection = @"Server=(localdb)\mssqllocaldb;Database=APCurator.NewDb;Trusted_Connection=True;";
             services.AddDbContext<InstructorDbContext>(options => options.UseSqlServer(connection));
+
             services.AddMvc()
                     .AddJsonOptions(jsonOptions =>
                     {
@@ -62,6 +72,8 @@ namespace AplusCurator
                 serviceScope.ServiceProvider.GetService<InstructorDbContext>().Database.Migrate();
                 serviceScope.ServiceProvider.GetService<InstructorDbContext>().EnsureSeedData();
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseApplicationInsightsRequestTelemetry();
 

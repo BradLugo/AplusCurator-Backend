@@ -94,6 +94,53 @@ namespace AplusCurator.Controllers
         /// <returns></returns>
         /// Body must be a single instructor json object
         /// POST api/instructor/create
+        [HttpPost("body/update")]
+        public IActionResult UpdateFromBody([FromBody]Instructor instructor)
+        {
+            return UpdateInstructor(instructor);
+        }
+
+        /// <summary>
+        /// http post request for creating a new instructor object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses form data
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        /// Data must be from a form request
+        /// POST api/instructor/create
+        [HttpPost("form/update")]
+        public IActionResult UpdateFromForm(Instructor instructor)
+        {
+            return UpdateInstructor(instructor);
+        }
+
+        /// <summary>
+        /// Method used by the Create and CreateFromBody methods to add an Instructor to 
+        /// the Database
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        private IActionResult UpdateInstructor(Instructor instructor)
+        {
+            if (ModelState.IsValid && instructor != null)
+            {
+
+                _context.Update(instructor);
+                _context.SaveChanges();
+            }
+            return Json(instructor);
+        }
+
+        /// <summary>
+        /// http post request for creating a new instructor object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses a json body
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        /// Body must be a single instructor json object
+        /// POST api/instructor/create
         [HttpPost("body/create")]
         public IActionResult CreateFromBody([FromBody]Instructor instructor)
         {
