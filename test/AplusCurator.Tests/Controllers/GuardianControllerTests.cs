@@ -181,10 +181,10 @@ namespace AplusCurator.Tests.Controllers
                 Address = "12 Space",
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
-                MobileNumber = "00000000000",
-                Role = 9,
+                MobileNumber = "1234567890",
+                Role = 2,
                 ContactName = "Francis",
-                ContactNumber = "6666666668",
+                ContactNumber = "1234567890",
                 Status = 1,
                 Description = "A dragon lord",
                 SystemInfo = "Random stuff"
@@ -227,6 +227,34 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
+        public void IsGuardianWithInvalidFirstNameValid()
+        {
+            //This guardian has an invalid first name
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing@@KappaPride420",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
         public void IsGuardianWithBlankLastName()
         {
             //This guardian has a blank last name
@@ -255,7 +283,35 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankAddress()
+        public void IsGuardianWithInvalidLastNameValid()
+        {
+            //This guardian has an invalid last name
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord6666666",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankAddressValid()
         {
             //This guardian has a blank address
             var guardian = new Guardian
@@ -283,7 +339,35 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankEmail()
+        public void IsGuardianWithInvalidAddressValid()
+        {
+            //This guardian has a invalid address
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "$$$ Main Street",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankEmailValid()
         {
             //This guardian has a blank email
             var guardian = new Guardian
@@ -311,7 +395,35 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankPhoneNumber()
+        public void IsGuardianWithInvalidEmailValid()
+        {
+            //This guardian has a invalid email
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeathgmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankPhoneNumberValid()
         {
             //This guardian has a blank phone number
             var guardian = new Guardian
@@ -339,7 +451,91 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankMoblieNumber()
+        public void IsGuardianWithInvalidPhoneValid()
+        {
+            //This guardian has an invalid phone number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "753*****8520",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithShortPhoneValid()
+        {
+            //This guardian has a short phone number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "753",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithLongPhoneValid()
+        {
+            //This guardian has a long phone number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "753753753753753753753753753753753753",
+                MobileNumber = "00000000000",
+                Role = 9,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = ""
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankMoblieNumberValid()
         {
             //This guardian has a blank moblie number
             var guardian = new Guardian
@@ -349,8 +545,7 @@ namespace AplusCurator.Tests.Controllers
                 Address = "12 Space",
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
-                MobileNumber = "",
-                Role = 9,
+                Role = 2,
                 ContactName = "Francis",
                 ContactNumber = "6666666668",
                 Status = 1,
@@ -367,7 +562,91 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankRole()
+        public void IsGuardianWithInvalidMoblieNumberValid()
+        {
+            //This guardian has a invalid moblie number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598999",
+                MobileNumber = "$$$$$$$$$$",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithShortMoblieNumberValid()
+        {
+            //This guardian has a short moblie number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "1234567890",
+                MobileNumber = "1",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithLongMoblieNumberValid()
+        {
+            //This guardian has a long moblie number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "1234567890",
+                MobileNumber = "111111111111",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankRoleValid()
         {
             //This guardian has a blank role
             var guardian = new Guardian
@@ -394,7 +673,35 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankContactName()
+        public void IsGuardianWithInvalidRoleValid()
+        {
+            //This guardian has a invalid role
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankContactNameValid()
         {
             //This guardian has a blank contact name
             var guardian = new Guardian
@@ -405,7 +712,7 @@ namespace AplusCurator.Tests.Controllers
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
                 MobileNumber = "00000000000",
-                Role = 9,
+                Role = 2,
                 ContactName = "",
                 ContactNumber = "6666666668",
                 Status = 1,
@@ -422,7 +729,35 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
-        public void IsGuardianWithBlankContactNumber()
+        public void IsGuardianWithInvalidContactNameValid()
+        {
+            //This guardian has a invalid contact name
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 2,
+                ContactName = "Ke$ha",
+                ContactNumber = "6666666668",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankContactNumberValid()
         {
             //This guardian has a blank contact number
             var guardian = new Guardian
@@ -433,9 +768,93 @@ namespace AplusCurator.Tests.Controllers
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
                 MobileNumber = "00000000000",
-                Role = 9,
+                Role = 2,
                 ContactName = "Francis",
                 ContactNumber = "",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankInvalidNumberValid()
+        {
+            //This guardian has a invalid contact number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "%%%%%%%%%%",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankShortNumberValid()
+        {
+            //This guardian has a short contact number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "11",
+                Status = 1,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsGuardianWithBlankLongNumberValid()
+        {
+            //This guardian has a long contact number
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "00000000000",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "11111111111",
                 Status = 1,
                 Description = "A dragon lord",
                 SystemInfo = "Random stuff"
@@ -460,8 +879,8 @@ namespace AplusCurator.Tests.Controllers
                 Address = "12 Space",
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
-                MobileNumber = "00000000000",
-                Role = 9,
+                MobileNumber = "1234567890",
+                Role = 2,
                 ContactName = "Francis",
                 ContactNumber = "6666666668",
                 Description = "A dragon lord",
@@ -477,6 +896,34 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
+        public void IsGuardianWithInvalidStatus()
+        {
+            //This guardian has a invalid status
+            var guardian = new Guardian
+            {
+                FirstName = "Deathwing",
+                LastName = "Dragonlord",
+                Address = "12 Space",
+                Email = "wingeddeath@gmail.com",
+                PhoneNumber = "7531598520",
+                MobileNumber = "1234567890",
+                Role = 2,
+                ContactName = "Francis",
+                ContactNumber = "6666666668",
+                Status = 99,
+                Description = "A dragon lord",
+                SystemInfo = "Random stuff"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(guardian, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(guardian, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
         public void IsGuardianWithBlankDescription()
         {
             //This guardian has a blank description
@@ -487,8 +934,8 @@ namespace AplusCurator.Tests.Controllers
                 Address = "12 Space",
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
-                MobileNumber = "00000000000",
-                Role = 9,
+                MobileNumber = "1234567890",
+                Role = 2,
                 ContactName = "Francis",
                 ContactNumber = "6666666668",
                 Status = 1,
@@ -515,8 +962,8 @@ namespace AplusCurator.Tests.Controllers
                 Address = "12 Space",
                 Email = "wingeddeath@gmail.com",
                 PhoneNumber = "7531598520",
-                MobileNumber = "00000000000",
-                Role = 9,
+                MobileNumber = "1234567890",
+                Role = 2,
                 ContactName = "Francis",
                 ContactNumber = "6666666668",
                 Status = 1,
@@ -531,6 +978,7 @@ namespace AplusCurator.Tests.Controllers
 
             Assert.True(isModelsStateValid);
         }
+ 
 
         #endregion
 
