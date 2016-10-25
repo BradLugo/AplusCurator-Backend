@@ -15,20 +15,26 @@ namespace AplusCurator.Models
         public int StudentId { get; set; }
 
         [StringLength(127), Required]
+        [RegularExpression(@"^[A-Za-z]+")]
         public string FirstName { get; set; }
 
         [StringLength(127), Required]
+        [RegularExpression(@"^[A-Za-z]+")]
         public string LastName { get; set; }
 
         [Column(TypeName = "Date"), Required]
+        [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
         [Required]
+        [Range(0, 1)]
         public int? Gender { get; set; }
 
         [Required]
+        [Range(1, 12)]
         public int? CurrentGrade { get; set; }
 
+        [Range(0, 5)]
         public int? Status { get; set; }
 
         [StringLength(99999)]

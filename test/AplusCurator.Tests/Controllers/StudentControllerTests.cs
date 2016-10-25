@@ -195,6 +195,30 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
+        public void IsStudentWithInvalidFirstName()
+        {
+            //This student with first name invalid
+            var student = new Student
+            {
+                FirstName = "Ke$ha",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
         public void IsStudentWithBlankLastName()
         {
             //This student last name blank
@@ -202,6 +226,30 @@ namespace AplusCurator.Tests.Controllers
             {
                 FirstName = "Dragon",
                 LastName = "",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithInvalidLastName()
+        {
+            //This student last name blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "888BOi0",
                 DateOfBirth = DateTime.Now,
                 Gender = 1,
                 CurrentGrade = 6,
@@ -264,6 +312,30 @@ namespace AplusCurator.Tests.Controllers
             Assert.False(isModelsStateValid);
         }
 
+        [Fact]
+        public void IsStudentWithInvalidGender()
+        {
+            //This student gender invalid
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 6,
+                CurrentGrade = 6,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
 
         [Fact]
         public void IsStudentWithBlankGrade()
@@ -275,6 +347,30 @@ namespace AplusCurator.Tests.Controllers
                 LastName = "Boy",
                 DateOfBirth = DateTime.Now,
                 Gender = 1,
+                Description = "He's a dragon boy.",
+                Status = 0,
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithInvalidGrade()
+        {
+            //This student grade blank
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 0,
                 Description = "He's a dragon boy.",
                 Status = 0,
                 SystemInfo = "Info here"
@@ -309,6 +405,30 @@ namespace AplusCurator.Tests.Controllers
             var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
 
             Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsStudentWithInvalidStatus()
+        {
+            //This student status invalid
+            var student = new Student
+            {
+                FirstName = "Dragon",
+                LastName = "Boy",
+                DateOfBirth = DateTime.Now,
+                Gender = 1,
+                CurrentGrade = 6,
+                Status = 8,
+                Description = "He's a dragon boy.",
+                SystemInfo = "Info here"
+            };
+
+            //Tries to validate the object
+            var context = new ValidationContext(student, null, null);
+            var results = new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(student, context, results, true);
+
+            Assert.False(isModelsStateValid);
         }
 
         [Fact]
