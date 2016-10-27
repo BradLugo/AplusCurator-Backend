@@ -24,7 +24,7 @@ namespace AplusCurator.Models
         public string Email { get; set; }
 
         [StringLength(127), Required]
-        [Phone]
+        [RegularExpression(@"^[0-9]{10}")]
         public string PhoneNumber { get; set; }
 
         [StringLength(127)]

@@ -115,12 +115,12 @@ namespace AplusCurator.Tests.Controllers
                 var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
                     , LastName = "This"
                     , MiddleName = "Isa"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , Email = "notarealemail@notarealdomain.com"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -145,12 +145,12 @@ namespace AplusCurator.Tests.Controllers
                 var results = controller.CreateFromForm( new Instructor { FirstName = "Atest"
                     , LastName = "This"
                     , MiddleName = "Isa"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , Email = "notarealemail@notarealdomain.com"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -169,16 +169,16 @@ namespace AplusCurator.Tests.Controllers
         [Fact]
         public void IsInstructorWithAllValid()
         {
-            // This instructor is missing a phone number
+            // This instructor is valid
             var instructor = new Instructor { FirstName = "Michale",
                     LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "8009119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -192,7 +192,7 @@ namespace AplusCurator.Tests.Controllers
             Assert.True(isModelsStateValid);
         }
 
-        [Fact]
+          [Fact]
         public void IsInstructorWithoutFirstNameNotValid()
         {
             // This instructor is missing a first name
@@ -200,11 +200,37 @@ namespace AplusCurator.Tests.Controllers
                     LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidFirstNameNotValid()
+        {
+            // This instructor has invalid 1st name
+            var instructor = new Instructor {  FirstName = "Michale88888"
+                    ,LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -224,12 +250,12 @@ namespace AplusCurator.Tests.Controllers
             // This instructor is missing a last name
             var instructor = new Instructor { FirstName = "Atest"
                     , MiddleName = "Isa"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , Email = "notarealemail@notarealdomain.com"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -243,7 +269,84 @@ namespace AplusCurator.Tests.Controllers
             Assert.False(isModelsStateValid);
         }
 
-                [Fact]
+        [Fact]
+        public void IsInstructorInvalidLastNameNotValid()
+        {
+            // This instructor has an invalid last name
+            var instructor = new Instructor { FirstName = "Atest"
+                    , LastName = "Es%%%ds"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorWithoutMiddleNameValid()
+        {
+            // This instructor is missing a middle name
+            var instructor = new Instructor { FirstName = "Atest"
+                    , LastName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.True(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidMiddleNameNotValid()
+        {
+            // This instructor has an invalid middle name
+            var instructor = new Instructor { FirstName = "Atest"
+                    , LastName = "Esper"
+                    , MiddleName = "Isa%%%%%$$"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
         public void IsInstructorWithoutAddressNotValid()
         {
             // This instructor is missing an address
@@ -253,8 +356,34 @@ namespace AplusCurator.Tests.Controllers
                     , Email = "notarealemail@notarealdomain.com"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidAddressNotValid()
+        {
+            // This instructor has an invalid address
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "$$ street"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -275,11 +404,37 @@ namespace AplusCurator.Tests.Controllers
             var instructor = new Instructor { FirstName = "test"
                     , LastName = "This"
                     , MiddleName = "Isa"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidEmailNotValid()
+        {
+            // This instructor has an invalid email
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemailnotarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -301,10 +456,88 @@ namespace AplusCurator.Tests.Controllers
                     , LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidPhoneNumberNotValid()
+        {
+            // This instructor has invalid phone number
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "1212$$1212"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorShortPhoneNumberNotValid()
+        {
+            // This instructor has a short phone number
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "121"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorLongPhoneNumberNotValid()
+        {
+            // This instructor has a long phone number
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "121212121212"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -326,11 +559,37 @@ namespace AplusCurator.Tests.Controllers
                     , LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+         [Fact]
+        public void IsInstructorInvalidRoleNotValid()
+        {
+            // This instructor has an invalid role
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 11
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
                     , EmploymentTerminationDate = DateTime.Now };
@@ -346,17 +605,43 @@ namespace AplusCurator.Tests.Controllers
         [Fact]
         public void IsInstructorWithoutStatusNotValid()
         {
-            // This instructor is missing a phone number
+            // This instructor is missing a status
             var instructor = new Instructor { FirstName = "test"
                     , LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now };
+
+            // Try to validate the object
+            var context = new ValidationContext(instructor, null, null);
+            var results =  new List<ValidationResult>();
+            var isModelsStateValid = Validator.TryValidateObject(instructor, context, results, true);
+
+            Assert.False(isModelsStateValid);
+        }
+
+        [Fact]
+        public void IsInstructorInvalidStatusNotValid()
+        {
+            // This instructor has an invalid status
+            var instructor = new Instructor { FirstName = "test"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Email = "notarealaddress@notarealdomain.com"
+                    , Address = "1234 A Valid Address Rd"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 11
                     , EmploymentStartDate = DateTime.Now
                     , EmploymentTerminationDate = DateTime.Now };
 
@@ -371,16 +656,16 @@ namespace AplusCurator.Tests.Controllers
         [Fact]
         public void IsInstructorWithoutEmploymentStartDateNotValid()
         {
-            // This instructor is missing a phone number
+            // This instructor is missing an employment start date
             var instructor = new Instructor { FirstName = "test"
                     , LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentTerminationDate = DateTime.Now };
@@ -401,11 +686,11 @@ namespace AplusCurator.Tests.Controllers
                     , LastName = "This"
                     , MiddleName = "Isa"
                     , Email = "notarealaddress@notarealdomain.com"
-                    , Address = "1234 A Valid Address Rd."
+                    , Address = "1234 A Valid Address Rd"
                     , PhoneNumber = "1234567890"
                     , MobilePhoneNumber = "1234567890"
-                    , EmergencyContactName = "The po-po"
-                    , EmergencyContactPhone = "1800-call-911"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
                     , Role = 0
                     , Status = 0
                     , EmploymentStartDate = DateTime.Now
@@ -458,14 +743,14 @@ namespace AplusCurator.Tests.Controllers
         private Instructor[] GetInstructors()
         {
             Instructor[] newInstructors = {
-                new Instructor { FirstName = "Thumb", LastName = "Jerome", MiddleName = "Jochem", Address = "1234 I Declare Rd.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "The po-po", EmergencyContactPhone = "1800-call-911", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Denton", LastName = "Traylor", MiddleName = "Waldo", Address = "54321 Boom Dr.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Eynever Panic", EmergencyContactPhone = "1800-call-911", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Roselyn", LastName = "Jekyll", MiddleName = "Nikolas", Address = "128 Igotlazymakingupaddressesok Rd.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Fake Data", EmergencyContactPhone = "1800-call-911", Role = 0, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Michael", LastName = "Geyer", MiddleName = "Alexander", Address = "25250 Not My Real Address ln.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Faux Info", EmergencyContactPhone = "1800-call-911", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "David", LastName = "Patrick", MiddleName = "", Address = "5481 Another Fake Address Dr.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Notaperson Thatexists", EmergencyContactPhone = "1800-call-911", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Richard", LastName = "Tran", MiddleName = "", Address = "56445 Random Words", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Somuchjunk Inthisform", EmergencyContactPhone = "1800-call-911", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Brad", LastName = "Lugo", MiddleName = "", Address = "898 Typing Words Ave.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Makeupnames Icannot", EmergencyContactPhone = "1800-call-911", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
-                    new Instructor { FirstName = "Samson", LastName = "Farade", MiddleName = "", Address = "5468 More Words ln.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Helpmeplease Imtiredofthis", EmergencyContactPhone = "1800-call-911", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now }
+                new Instructor { FirstName = "Thumb", LastName = "Jerome", MiddleName = "Jochem", Address = "1234 I Declare Rd.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Random", EmergencyContactPhone = "9119119119", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Denton", LastName = "Traylor", MiddleName = "Waldo", Address = "54321 Boom Dr.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Eynever Panic", EmergencyContactPhone = "9119119119", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Roselyn", LastName = "Jekyll", MiddleName = "Nikolas", Address = "128 Igotlazymakingupaddressesok Rd.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Fake Data", EmergencyContactPhone = "9119119119", Role = 0, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Michael", LastName = "Geyer", MiddleName = "Alexander", Address = "25250 Not My Real Address ln.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Faux Info", EmergencyContactPhone = "9119119119", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "David", LastName = "Patrick", MiddleName = "", Address = "5481 Another Fake Address Dr.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Notaperson Thatexists", EmergencyContactPhone = "9119119119", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Richard", LastName = "Tran", MiddleName = "", Address = "56445 Random Words", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Somuchjunk Inthisform", EmergencyContactPhone = "9119119119", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Brad", LastName = "Lugo", MiddleName = "", Address = "898 Typing Words Ave.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Makeupnames Icannot", EmergencyContactPhone = "9119119119", Role = 1, Status = 0, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now },
+                    new Instructor { FirstName = "Samson", LastName = "Farade", MiddleName = "", Address = "5468 More Words ln.", Email = "notarealemail@notarealdomain.com", PhoneNumber = "1234567890", MobilePhoneNumber = "1234567890", EmergencyContactName = "Helpmeplease Imtiredofthis", EmergencyContactPhone = "9119119119", Role = 0, Status = 1, EmploymentStartDate = DateTime.Now, EmploymentTerminationDate = DateTime.Now }
         };
                 return newInstructors;
         }
