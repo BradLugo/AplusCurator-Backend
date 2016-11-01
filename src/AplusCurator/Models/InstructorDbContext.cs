@@ -10,6 +10,7 @@ namespace AplusCurator.Models
         {
         }
         public DbSet<Instructor> Instructors { get; set; }
+        public DbSet<InstructorAttendance> InstructorAttendance { get; set; }
 
     }
 }

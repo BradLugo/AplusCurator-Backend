@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -42,6 +37,22 @@ namespace AplusCurator.Models
 
         [StringLength(99999)]
         public string SystemInfo { get; set; }
+
+    }
+
+    public class StudentAttendance
+    {
+        [Key]
+        public int StudentAttendanceId { get; set; }
+
+        [Column(TypeName = "Date"), Required]
+        public DateTime AttendanceTime { get; set; }
+
+        [Column(TypeName = "Time"), Required]
+        public DateTime EntryTime { get; set; }
+
+        [Column(TypeName = "Time")]
+        public DateTime ExitTime { get; set; }
 
     }
 }

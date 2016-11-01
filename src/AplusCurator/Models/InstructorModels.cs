@@ -1,6 +1,6 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AplusCurator.Models
 {
@@ -61,9 +61,20 @@ namespace AplusCurator.Models
         // View model needs attachment type, SQL DB will have a table for attachements with secondary key on Id
 
     }
-    // May not be usefull in our case
-    public class InstructorViewModel
+
+    public class InstructorAttendance
     {
+        [Key]
+        public int InstructorAttendanceId { get; set; }
+
+        [Column(TypeName = "Date"), Required]
+        public DateTime AttendanceTime { get; set; }
+
+        [Column(TypeName = "Time"), Required]
+        public DateTime EntryTime { get; set; }
+
+        [Column(TypeName = "Time")]
+        public DateTime ExitTime { get; set; }
 
     }
 }
