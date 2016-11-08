@@ -45,14 +45,17 @@ namespace AplusCurator.Models
         [Key]
         public int StudentAttendanceId { get; set; }
 
+        [Required]
+        public int? StudentId { get; set; }
+
         [Column(TypeName = "Date"), Required]
-        public DateTime AttendanceTime { get; set; }
+        public DateTime AttendanceDate { get; set; }
 
         [Column(TypeName = "Time"), Required]
-        public DateTime EntryTime { get; set; }
+        public TimeSpan EntryTime { get; set; }
 
         [Column(TypeName = "Time")]
-        public DateTime ExitTime { get; set; }
+        public TimeSpan? Duration { get; set; }
 
     }
 }

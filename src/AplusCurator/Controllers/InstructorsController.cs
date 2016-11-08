@@ -178,5 +178,85 @@ namespace AplusCurator.Controllers
             }
             return Json(instructor);
         }
+
+        /// <summary>
+        /// Sign in an instructor from body post request
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        [HttpPost("form/signout")]
+        public IActionResult InstructorSignOutFromForm(Instructor instructor)
+        {
+            return InstructorSignOut(instructor);
+        }
+
+        /// <summary>
+        /// Sign in an instructor from form post request
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        [HttpPost("body/signout")]
+        public IActionResult InstructorSignOutFromBody([FromBody]Instructor instructor)
+        {
+            return InstructorSignOut(instructor);
+        }
+
+        private IActionResult InstructorSignOut(Instructor instructor)
+        {
+            if (ModelState.IsValid && instructor != null)
+            {
+                // Check if the instructor exists or is currently signed in already
+                var instructorExists = _context.Instructors.Where(m => m.InstructorId == instructor.InstructorId).Single();
+                var attendanceExists = _context.InstructorsAttendance.Where(m => m.InstructorId == instructor.InstructorId && !m.Duration.HasValue).Single();
+                attendanceExists.Duration = DateTime.Now.TimeOfDay - attendanceExists.EntryTime;
+
+                _context.Update(attendanceExists);
+                _context.SaveChanges();
+            }
+            return Json(instructor);
+        }
+
+
+        /// <summary>
+        /// Sign in an instructor from body post request
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        [HttpPost("form/signin")]
+        public IActionResult InstructorSignInFromForm(Instructor instructor)
+        {
+            return InstructorSignIn(instructor);
+        }
+
+        /// <summary>
+        /// Sign in an instructor from form post request
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        [HttpPost("body/signin")]
+        public IActionResult InstructorSignInFromBody([FromBody]Instructor instructor)
+        {
+            return InstructorSignIn(instructor);
+        }
+
+        private IActionResult InstructorSignIn(Instructor instructor)
+        {
+            if (ModelState.IsValid && instructor != null)
+            {
+                // Check if the instructor exists or is currently signed in already
+                var instructorExists = _context.Instructors.Where(m => m.InstructorId == instructor.InstructorId).Single();
+                var attendanceExists = _context.InstructorsAttendance.Where(m => m.InstructorId == instructor.InstructorId && !m.Duration.HasValue);
+                if (attendanceExists.Count() == 1)
+                {
+                    // The instructor is already signed in
+                }
+                else
+                {
+                    _context.Add(new InstructorAttendance { InstructorId = instructor.InstructorId, EntryTime = DateTime.Now.TimeOfDay, AttendanceDate = DateTime.Now });
+                    _context.SaveChanges();
+                }
+            }
+            return Json(instructor);
+        }
     }
 }

@@ -8,9 +8,10 @@ using AplusCurator.Models;
 namespace AplusCurator.Migrations
 {
     [DbContext(typeof(InstructorDbContext))]
-    partial class InstructorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161107223910_Attendance")]
+    partial class Attendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -77,10 +78,10 @@ namespace AplusCurator.Migrations
                     b.Property<DateTime>("AttendanceDate")
                         .HasColumnType("Date");
 
-                    b.Property<TimeSpan?>("Duration")
+                    b.Property<DateTime>("EntryTime")
                         .HasColumnType("Time");
 
-                    b.Property<DateTime>("EntryTime")
+                    b.Property<DateTime?>("ExitTime")
                         .HasColumnType("Time");
 
                     b.Property<int?>("InstructorId")
