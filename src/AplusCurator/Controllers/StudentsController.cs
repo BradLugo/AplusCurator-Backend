@@ -23,7 +23,7 @@ namespace AplusCurator.Controllers
         [HttpGet]
         public IEnumerable<Student> Get()
         {
-            var result = _context.Students.ToList();
+            var result =_context.Students.ToList();
             return result;
         }
 
@@ -31,7 +31,7 @@ namespace AplusCurator.Controllers
         [HttpGet("id/{id}")]
         public IEnumerable<Student> GetById(int id)
         {
-            var result = _context.Students.ToList().Where(w => w.StudentId == id);
+            var result =_context.Students.ToList().Where(w => w.StudentId == id);
             return result;
         }
         // GET api/student/name/John
@@ -46,7 +46,7 @@ namespace AplusCurator.Controllers
         [HttpGet("status/{status}")]
         public IEnumerable<Student> GetByStatus(int status)
         {
-            var result = _context.Students.ToList().Where(w => w.Status == status);
+            var result =_context.Students.ToList().Where(w => w.Status == status);
             return result;
         }
 
@@ -91,9 +91,9 @@ namespace AplusCurator.Controllers
                 // Throw exception if student doesn't exist
                 //_context.Students.Where(w => w.StudentId == student.StudentId).Single();
 
-                _context.Remove(student);
+               _context.Remove(student);
 
-                _context.SaveChanges();
+               _context.SaveChanges();
             }
             return Json(student);
         }
@@ -138,8 +138,8 @@ namespace AplusCurator.Controllers
         {
             if (ModelState.IsValid && student != null)
             {
-                _context.Update(student);
-                _context.SaveChanges();
+               _context.Update(student);
+               _context.SaveChanges();
             }
             return Json(student);
         }
@@ -185,8 +185,8 @@ namespace AplusCurator.Controllers
             if (ModelState.IsValid && student != null)
             {
 
-                _context.Add(student);
-                _context.SaveChanges();
+               _context.Add(student);
+               _context.SaveChanges();
             }
             return Json(student);
         }

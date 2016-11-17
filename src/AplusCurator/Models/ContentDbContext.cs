@@ -10,7 +10,7 @@ namespace AplusCurator.Models
 
         }
 
-        public DbSet<LearningPlan> LearningPlans { get; set; }
+        public DbSet<Learningplan> Learningplans { get; set; }
         public DbSet<Assessment> Assessments { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Section> Sections { get; set; }

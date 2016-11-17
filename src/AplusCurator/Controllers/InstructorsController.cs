@@ -216,7 +216,6 @@ namespace AplusCurator.Controllers
             return Json(instructor);
         }
 
-
         /// <summary>
         /// Sign in an instructor from body post request
         /// </summary>

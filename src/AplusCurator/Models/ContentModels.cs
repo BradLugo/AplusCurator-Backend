@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace AplusCurator.Models
 {
-    public class LearningPlan
+    public class Learningplan
     {
         [Key]
-        public int LearningPlanId { get; set; }
+        public int LearningplanId { get; set; }
 
         [ForeignKey("StudentId")]
         public int StudentId { get; set; }
@@ -50,8 +50,8 @@ namespace AplusCurator.Models
         [ForeignKey("SectionId")]
         public int SectionId { get; set; }
 
-        [ForeignKey("LearningPlanId")]
-        public int LearningPlanId { get; set; }
+        [ForeignKey("LearningplanId")]
+        public int LearningplanId { get; set; }
 
         public int[] AssignedPages { get; set; }
     }

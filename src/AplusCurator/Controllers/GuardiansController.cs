@@ -23,7 +23,7 @@ namespace AplusCurator.Controllers
         [HttpGet]
         public IEnumerable<Guardian> Get()
         {
-            var result = _context.Guardians.ToList();
+            var result =_context.Guardians.ToList();
             return result;
         }
 
@@ -31,28 +31,28 @@ namespace AplusCurator.Controllers
         [HttpGet("id/{id}")]
         public IEnumerable<Guardian> GetById(int id)
         {
-            var result = _context.Guardians.ToList().Where(w => w.GuardianId == id);
+            var result =_context.Guardians.ToList().Where(w => w.GuardianId == id);
             return result;
         }
         // GET api/student/name/John
         [HttpGet("name/{name}")]
         public IEnumerable<Guardian> GetByName(string name)
         {
-            var result = _context.Guardians.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper()));
+            var result =_context.Guardians.ToList().Where(w => w.FirstName.ToUpper().Contains(name.ToUpper()) || w.LastName.ToUpper().Contains(name.ToUpper()));
             return result;
         }
         // GET api/student/role/1
         [HttpGet("role/{role}")]
         public IEnumerable<Guardian> GetByRole(int role)
         {
-            var result = _context.Guardians.ToList().Where(w => w.Role == role);
+            var result =_context.Guardians.ToList().Where(w => w.Role == role);
             return result;
         }
         // GET api/student/status/1
         [HttpGet("status/{status}")]
         public IEnumerable<Guardian> GetByStatus(int status)
         {
-            var result = _context.Guardians.ToList().Where(w => w.Status == status);
+            var result =_context.Guardians.ToList().Where(w => w.Status == status);
             return result;
         }
 
@@ -79,9 +79,9 @@ namespace AplusCurator.Controllers
                 // Throw exception if guardian doesn't exist
                 //_context.Guardians.Where(w => w.GuardianId == guardian.GuardianId).Single();
 
-                _context.Remove(guardian);
+               _context.Remove(guardian);
 
-                _context.SaveChanges();
+               _context.SaveChanges();
             }
             return Json(guardian);
         }
@@ -127,8 +127,8 @@ namespace AplusCurator.Controllers
             if (ModelState.IsValid && guardian != null)
             {
 
-                _context.Add(guardian);
-                _context.SaveChanges();
+               _context.Add(guardian);
+               _context.SaveChanges();
             }
             return Json(guardian);
         }
