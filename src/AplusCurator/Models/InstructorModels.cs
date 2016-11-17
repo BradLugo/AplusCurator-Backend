@@ -78,6 +78,5 @@ namespace AplusCurator.Models
 
         [Column(TypeName = "Time")]
         public TimeSpan? Duration { get; set; }
-
     }
 }

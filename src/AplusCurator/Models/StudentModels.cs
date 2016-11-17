@@ -45,7 +45,7 @@ namespace AplusCurator.Models
         [Key]
         public int StudentAttendanceId { get; set; }
 
-        [Required]
+        [ForeignKey("StudentId")]
         public int? StudentId { get; set; }
 
         [Column(TypeName = "Date"), Required]
