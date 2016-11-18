@@ -184,9 +184,113 @@ namespace AplusCurator.Controllers
         {
             if (ModelState.IsValid && student != null)
             {
-
                _context.Add(student);
                _context.SaveChanges();
+            }
+            return Json(student);
+        }
+
+        [HttpGet("current")]
+        public IEnumerable<Student> GetStudentsCurrentlyIn()
+        {
+            var openAttendances = _context.StudentsAttendance.Where(m => !m.Duration.HasValue).ToList();
+            List<Student> currentStudents = new List<Student>();
+            foreach (var attendance in openAttendances)
+            {
+                currentStudents.Add(_context.Students.Where(m => attendance.StudentId == m.StudentId).Single());
+            }
+            return currentStudents;
+        }
+
+        [HttpGet("notcurrent")]
+        public IEnumerable<Student> GetStudentsNotCurrentlyIn()
+        {
+            var openAttendances = _context.StudentsAttendance.Where(m => !m.Duration.HasValue).ToList();
+            List<Student> currentStudents = _context.Students.ToList();
+            foreach (var attendance in openAttendances)
+            {
+                currentStudents.Remove(_context.Students.Where(m => m.StudentId == attendance.StudentId).Single());
+            }
+            return currentStudents;
+        }
+
+        /// <summary>
+        /// Sign in an student from body post request
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [HttpPost("form/signout")]
+        public IActionResult StudentSignOutFromForm(Student student)
+        {
+            return StudentSignOut(student);
+        }
+
+        /// <summary>
+        /// Sign in an student from form post request
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [HttpPost("body/signout")]
+        public IActionResult StudentSignOutFromBody([FromBody]Student student)
+        {
+            return StudentSignOut(student);
+        }
+
+        private IActionResult StudentSignOut(Student student)
+        {
+            if (ModelState.IsValid && student != null)
+            {
+                // Check if the student exists or is currently signed in already
+                var studentExists = _context.Students.Where(m => m.StudentId == student.StudentId).Single();
+                var attendanceExists = _context.StudentsAttendance.Where(m => m.StudentId == student.StudentId && !m.Duration.HasValue).Single();
+                attendanceExists.Duration = DateTime.Now.TimeOfDay - attendanceExists.EntryTime;
+
+                _context.Update(attendanceExists);
+                _context.SaveChanges();
+                return Json(attendanceExists);
+            }
+            return Json(student);
+        }
+
+        /// <summary>
+        /// Sign in an student from body post request
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [HttpPost("form/signin")]
+        public IActionResult StudentSignInFromForm(Student student)
+        {
+            return StudentSignIn(student);
+        }
+
+        /// <summary>
+        /// Sign in an student from form post request
+        /// </summary>
+        /// <param name="student"></param>
+        /// <returns></returns>
+        [HttpPost("body/signin")]
+        public IActionResult StudentSignInFromBody([FromBody]Student student)
+        {
+            return StudentSignIn(student);
+        }
+
+        private IActionResult StudentSignIn(Student student)
+        {
+            if (ModelState.IsValid && student != null)
+            {
+                // Check if the student exists or is currently signed in already
+                var studentExists = _context.Students.Where(m => m.StudentId == student.StudentId).Single();
+                var attendanceExists = _context.StudentsAttendance.Where(m => m.StudentId == student.StudentId && !m.Duration.HasValue);
+                if (attendanceExists.Count() == 1)
+                {
+                    // The student is already signed in
+                }
+                else
+                {
+                    _context.Add(new StudentAttendance { StudentId = student.StudentId, EntryTime = DateTime.Now.TimeOfDay, AttendanceDate = DateTime.Now });
+                    _context.SaveChanges();
+                    return Json(attendanceExists);
+                }
             }
             return Json(student);
         }

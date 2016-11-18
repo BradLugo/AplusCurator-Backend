@@ -32,7 +32,7 @@ namespace AplusCurator.Controllers
         {
             return CreateLearningplan(learningplan);
         }
-         
+        
         private JsonResult CreateLearningplan(Learningplan learningplan)
         {
             // Create the learning plan object here

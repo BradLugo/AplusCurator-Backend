@@ -179,6 +179,30 @@ namespace AplusCurator.Controllers
             return Json(instructor);
         }
 
+        [HttpGet("current")]
+        public IEnumerable<Instructor> GetInstructorsCurrentlyIn()
+        {
+            var openAttendances = _context.InstructorsAttendance.Where(m => !m.Duration.HasValue).ToList();
+            List<Instructor> currentInstructors = new List<Instructor>();
+            foreach (var attendance in openAttendances)
+            {
+                currentInstructors.Add(_context.Instructors.Where(m => attendance.InstructorId == m.InstructorId).Single());
+            }
+            return currentInstructors;
+        }
+
+        [HttpGet("notcurrent")]
+        public IEnumerable<Instructor> GetInstructorsNotCurrentlyIn()
+        {
+            var openAttendances = _context.InstructorsAttendance.Where(m => !m.Duration.HasValue).ToList();
+            List<Instructor> currentInstructors = _context.Instructors.ToList();
+            foreach (var attendance in openAttendances)
+            {
+                currentInstructors.Remove(_context.Instructors.Where(m => m.InstructorId == attendance.InstructorId).Single());
+            }
+            return currentInstructors;
+        }
+
         /// <summary>
         /// Sign in an instructor from body post request
         /// </summary>
@@ -212,6 +236,7 @@ namespace AplusCurator.Controllers
 
                 _context.Update(attendanceExists);
                 _context.SaveChanges();
+                return Json(attendanceExists);
             }
             return Json(instructor);
         }
@@ -253,6 +278,7 @@ namespace AplusCurator.Controllers
                 {
                     _context.Add(new InstructorAttendance { InstructorId = instructor.InstructorId, EntryTime = DateTime.Now.TimeOfDay, AttendanceDate = DateTime.Now });
                     _context.SaveChanges();
+                    return Json(attendanceExists);
                 }
             }
             return Json(instructor);
