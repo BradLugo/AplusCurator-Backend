@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AplusCurator.Models;
 using Microsoft.EntityFrameworkCore;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
 namespace AplusCurator
 {
@@ -41,8 +42,8 @@ namespace AplusCurator
 
 
             // Add database services
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=APCurator.NewDb;Trusted_Connection=True;";
-            services.AddDbContext<InstructorDbContext>(options => options.UseSqlServer(connection));
+            var connection = @"server=70.121.164.108;userid=Aplus;pwd=AplusCurator-ProjectManagement;port=3306;database=dev;SslMode=None;";
+            services.AddDbContext<InstructorDbContext>(options => options.UseMySQL(connection, b => b.MigrationsAssembly("AplusCurator")));
             services.AddMvc();
             
         }
@@ -55,8 +56,7 @@ namespace AplusCurator
 
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                serviceScope.ServiceProvider.GetService<InstructorDbContext>().Database.Migrate();
-                serviceScope.ServiceProvider.GetService<InstructorDbContext>().EnsureSeedData();
+                serviceScope.ServiceProvider.GetService<InstructorDbContext>().Database.EnsureCreated();
             }
 
             app.UseApplicationInsightsRequestTelemetry();
