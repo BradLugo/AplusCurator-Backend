@@ -11,5 +11,6 @@ namespace AplusCurator.Models
         }
 
         public DbSet<Student> Students { get; set; }
+        public DbSet<StudentAttendance> StudentsAttendance { get; set; }
     }
 }

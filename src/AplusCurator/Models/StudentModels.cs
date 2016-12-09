@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,27 +10,52 @@ namespace AplusCurator.Models
         public int StudentId { get; set; }
 
         [StringLength(127), Required]
+        [RegularExpression(@"^[A-Za-z]+")]
         public string FirstName { get; set; }
 
         [StringLength(127), Required]
+        [RegularExpression(@"^[A-Za-z]+")]
         public string LastName { get; set; }
 
         [Column(TypeName = "Date"), Required]
-        public DateTime DateOfBirth { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
 
         [Required]
-        public int Gender { get; set; }
+        [Range(0, 1)]
+        public int? Gender { get; set; }
 
         [Required]
-        public int CurrentGrade { get; set; }
+        [Range(1, 12)]
+        public int? CurrentGrade { get; set; }
 
-        public int Status { get; set; }
+        [Range(0, 5)]
+        public int? Status { get; set; }
 
         [StringLength(99999)]
         public string Description { get; set; }
 
         [StringLength(99999)]
         public string SystemInfo { get; set; }
+
+    }
+
+    public class StudentAttendance
+    {
+        [Key]
+        public int StudentAttendanceId { get; set; }
+
+        [ForeignKey("StudentId")]
+        public int? StudentId { get; set; }
+
+        [Column(TypeName = "Date"), Required]
+        public DateTime AttendanceDate { get; set; }
+
+        [Column(TypeName = "Time"), Required]
+        public TimeSpan EntryTime { get; set; }
+
+        [Column(TypeName = "Time")]
+        public TimeSpan? Duration { get; set; }
 
     }
 }

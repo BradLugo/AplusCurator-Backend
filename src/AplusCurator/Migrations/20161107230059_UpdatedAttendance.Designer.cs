@@ -8,9 +8,10 @@ using AplusCurator.Models;
 namespace AplusCurator.Migrations
 {
     [DbContext(typeof(InstructorDbContext))]
-    partial class InstructorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161107230059_UpdatedAttendance")]
+    partial class UpdatedAttendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

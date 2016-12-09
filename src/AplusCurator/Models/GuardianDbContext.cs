@@ -11,5 +11,7 @@ namespace AplusCurator.Models
         }
 
         public DbSet<Guardian> Guardians { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<StudentRelation> Relations { get; set; }
     }
 }
