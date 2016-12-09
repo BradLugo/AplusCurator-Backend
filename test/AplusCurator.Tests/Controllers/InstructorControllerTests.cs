@@ -1128,6 +1128,72 @@ namespace AplusCurator.Tests.Controllers
             }
         }
 
+        [Fact]
+        public void CanDeleteInstructorFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromBody(result);
+                Assert.Empty(controller.GetByName("Atest"));
+            }
+        }
+
+        [Fact]
+        public void CanDeleteInstructorFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromForm(result);
+                Assert.Empty(controller.GetByName("Atest"));
+            }
+        }
+
         #endregion
 
         #region Instructor validation tests

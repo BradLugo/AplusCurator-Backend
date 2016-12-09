@@ -688,6 +688,68 @@ namespace AplusCurator.Tests.Controllers
                 Assert.True(updatedresult.SystemInfo == "New Info here");
             }
         }
+
+        [Fact]
+        public void CanDeleteStudentFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromBody(result);
+                Assert.Empty(controller.GetByName("Test"));
+            }
+        }
+
+        [Fact]
+        public void CanDeleteStudentFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromForm(result);
+                Assert.Empty(controller.GetByName("Test"));
+            }
+        }
         #endregion
 
         #region Student Validation Tests

@@ -1054,6 +1054,76 @@ namespace AplusCurator.Tests.Controllers
                 Assert.True(galaxy.SystemInfo == "System info goes here");
             }
         }
+
+        [Fact]
+        public void CanDeleteGuardianFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromBody(result);
+                Assert.Empty(controller.GetByName("Deathwing"));
+            }
+        }
+
+        [Fact]
+        public void CanDeleteGuardianFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromForm(result);
+                Assert.Empty(controller.GetByName("Deathwing"));
+            }
+        }
         #endregion
 
         #region Guardian Validation Tests
