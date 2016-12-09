@@ -21,7 +21,7 @@ namespace AplusCurator.Controllers
             this._student_context = StudentContext;
         }
 
-        // GET: api/student
+        // GET: api/guardians
         [HttpGet]
         public IEnumerable<Guardian> Get()
         {
