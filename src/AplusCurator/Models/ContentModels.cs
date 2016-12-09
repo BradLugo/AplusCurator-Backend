@@ -27,10 +27,34 @@ namespace AplusCurator.Models
         [Key]
         public int AssessmentId { get; set; }
 
-        public int[] QuestionTopicList { get; set; }
+        public string RawQuestionTopicList { get; set; }
+        [NotMapped]
+        public int[] QuestionTopicData
+        {
+            get
+            {
+                return RawQuestionTopicList.Split(';').Select(m => int.Parse(m)).ToArray();
+            }
+            set
+            {
+                RawQuestionTopicList = String.Join(";", value.Select(p => p.ToString()).ToArray());
+            }
+        }
 
-        [Range(0, 5)]
-        public int[] QuestionScoreList { get; set; }
+        public string RawQuestionScoreList { get; set; }
+
+        [NotMapped]
+        public int[] QuestionScoreData
+        {
+            get
+            {
+                return RawQuestionScoreList.Split(';').Select(m => int.Parse(m)).ToArray();
+            }
+            set
+            {
+                RawQuestionScoreList = String.Join(";", value.Select(p => p.ToString()).ToArray());
+            }
+        }
 
         [Required]
         public string PdfPath { get; set; }
@@ -53,7 +77,20 @@ namespace AplusCurator.Models
         [ForeignKey("LearningplanId")]
         public int LearningplanId { get; set; }
 
-        public int[] AssignedPages { get; set; }
+        public string RawAssignedPages { get; set; }
+
+        [NotMapped]
+        public int[] AssignedPagesData
+        {
+            get
+            {
+                return RawAssignedPages.Split(';').Select(m => int.Parse(m)).ToArray();
+            }
+            set
+            {
+                RawAssignedPages = String.Join(";", value.Select(p => p.ToString()).ToArray());
+            }
+        }
     }
 
     public class Section
@@ -67,4 +104,6 @@ namespace AplusCurator.Models
         [Required]
         public string Title { get; set; }
     }
+
+
 }

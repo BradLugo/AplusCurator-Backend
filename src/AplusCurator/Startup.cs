@@ -54,6 +54,7 @@ namespace AplusCurator
             services.AddDbContext<InstructorDbContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<StudentDbContext>(options => options.UseSqlServer(connection));
             services.AddDbContext<GuardianDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ContentDbContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc()
                     .AddJsonOptions(jsonOptions =>

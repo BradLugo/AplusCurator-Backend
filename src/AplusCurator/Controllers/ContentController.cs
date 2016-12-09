@@ -61,7 +61,7 @@ namespace AplusCurator.Controllers
                     // ERR match
                     // That section does not exist
                 }
-                if (assign.AssignedPages.Length <= 0) // make sure the assignments have a valid length
+                if (assign.AssignedPagesData.Length <= 0) // make sure the assignments have a valid length
                 {
                     // ERR Assignment length is 0
                 }

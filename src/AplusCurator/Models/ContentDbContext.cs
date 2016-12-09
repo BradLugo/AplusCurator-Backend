@@ -7,7 +7,6 @@ namespace AplusCurator.Models
         public ContentDbContext(DbContextOptions<ContentDbContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<Learningplan> Learningplans { get; set; }
