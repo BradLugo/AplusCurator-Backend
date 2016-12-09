@@ -192,6 +192,12 @@ namespace AplusCurator.Controllers
         }
 
 
+        [HttpGet("id/{id}/students")]
+        public IEnumerable<Student> GetStudentsUnderGuardian(int id)
+        {
+            return getStudentsUnderGuardian(id);
+        }
+
         [HttpPost("payments/generate")]
         public IEnumerable<Invoice> GenerateMonthyInvoices()
         {
