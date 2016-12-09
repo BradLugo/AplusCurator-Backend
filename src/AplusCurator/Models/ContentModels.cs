@@ -78,7 +78,6 @@ namespace AplusCurator.Models
         public int LearningplanId { get; set; }
 
         public string RawAssignedPages { get; set; }
-
         [NotMapped]
         public int[] AssignedPagesData
         {

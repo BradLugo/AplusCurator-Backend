@@ -8,9 +8,10 @@ using AplusCurator.Models;
 namespace AplusCurator.Migrations.GuardianDb
 {
     [DbContext(typeof(GuardianDbContext))]
-    partial class GuardianDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161209034617_Payments")]
+    partial class Payments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -69,28 +70,6 @@ namespace AplusCurator.Migrations.GuardianDb
                     b.HasKey("GuardianId");
 
                     b.ToTable("Guardians");
-                });
-
-            modelBuilder.Entity("AplusCurator.Models.Invoice", b =>
-                {
-                    b.Property<int>("InvoiceId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<double>("DueAmount");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("Date");
-
-                    b.Property<int>("GuardianId");
-
-                    b.Property<double>("PaidAmount");
-
-                    b.Property<DateTime>("PaidDate")
-                        .HasColumnType("Date");
-
-                    b.HasKey("InvoiceId");
-
-                    b.ToTable("Invoices");
                 });
         }
     }

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AplusCurator.Models
 {
@@ -6,6 +8,9 @@ namespace AplusCurator.Models
     {
         [Key]
         public int GuardianId { get; set; }
+
+        [Column(TypeName = "Date")]
+        public DateTime MostRecentPayement { get; set; }
 
         [StringLength(127), Required]
         [RegularExpression(@"^[A-Za-z]+")]
@@ -51,5 +56,27 @@ namespace AplusCurator.Models
 
         [StringLength(99999)]
         public string SystemInfo { get; set; }
+    }
+
+    public class Invoice
+    {
+
+        [Key]
+        public int InvoiceId { get; set; }
+
+        [Required]
+        public double DueAmount { get; set; }
+
+        [Required]
+        public double PaidAmount { get; set; }
+
+        [ForeignKey("GuardianId")]
+        public int GuardianId { get; set; }
+
+        [Column(TypeName = "Date"), Required]
+        public DateTime DueDate { get; set; }
+
+        [Column(TypeName = "Date"), Required]
+        public DateTime PaidDate { get; set; }
     }
 }
