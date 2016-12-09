@@ -132,5 +132,62 @@ namespace AplusCurator.Controllers
             }
             return Json(guardian);
         }
+
+
+        [HttpGet("payments/date/{year}/{month}/{day}")]
+        public IEnumerable<Invoice> GetAllInvoicesByYearMonthDay(int year, int month, int day)
+        {
+            return GetAllInvoices(year, month, day);
+        }
+        [HttpGet("payments/date/{year}/{month}")]
+        public IEnumerable<Invoice> GetAllInvoicesByYearMonth(int year, int month)
+        {
+            return GetAllInvoices(year, month, null);
+        }
+        [HttpGet("payments/date/{year}")]
+        public IEnumerable<Invoice> GetAllInvoicesByYear(int year)
+        {
+            return GetAllInvoices(year, null, null);
+        }
+        private IEnumerable<Invoice> GetAllInvoices(int year, int? month, int? day)
+        {
+            if (day.HasValue)
+                return _context.Invoices.Where(m => m.DueDate.Year == year && m.DueDate.Month == month && m.DueDate.Day == day);
+            else if (month.HasValue)
+                return _context.Invoices.Where(m => m.DueDate.Year == year && m.DueDate.Month == month);
+            else
+                return _context.Invoices.Where(m => m.DueDate.Year == year);
+        }
+
+        [HttpGet("payments/guardian/id/{id}")]
+        public IEnumerable<Invoice> GetAllInvoicesByGuardian(int id)
+        {
+            return _context.Invoices.Where(m => m.GuardianId == id);
+        }
+
+        [HttpGet("payments/invoice/id/{id}")]
+        public IEnumerable<Invoice> GetAllInvoicesById(int id)
+        {
+            return _context.Invoices.Where(m => m.InvoiceId == id);
+        }
+
+
+        [HttpGet("payments/collected")]
+        public double GetTotalCollectedThisMonth()
+        {
+            return _context.Invoices.Sum(m => m.PaidAmount);
+        }
+        [HttpGet("payments/projected")]
+        public double GetTotalProjectedThisMonth()
+        {
+            return _context.Invoices.Sum(m => m.DueAmount);
+        }
+
+        [HttpGet("payments/due")]
+        public IEnumerable<Invoice> GetOutstandingInvoices()
+        {
+            return _context.Invoices.Where(m => m.DueAmount > m.PaidAmount);
+        }
+
     }
 }
