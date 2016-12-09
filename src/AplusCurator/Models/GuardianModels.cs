@@ -58,6 +58,18 @@ namespace AplusCurator.Models
         public string SystemInfo { get; set; }
     }
 
+    public class StudentRelation
+    {
+        [Key]
+        public int relationId { get; set; }
+
+        [ForeignKey("studentId")]
+        public int studentId { get; set; }
+
+        [ForeignKey("guardianId")]
+        public int guardianId { get; set; }
+    }
+
     public class Invoice
     {
 
@@ -73,10 +85,13 @@ namespace AplusCurator.Models
         [ForeignKey("GuardianId")]
         public int GuardianId { get; set; }
 
+        [ForeignKey("StudentId")]
+        public int StudentId { get; set; }
+
         [Column(TypeName = "Date"), Required]
         public DateTime DueDate { get; set; }
 
-        [Column(TypeName = "Date"), Required]
-        public DateTime PaidDate { get; set; }
+        [Column(TypeName = "Date")]
+        public DateTime? PaidDate { get; set; }
     }
 }

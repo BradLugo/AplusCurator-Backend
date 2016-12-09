@@ -8,9 +8,10 @@ using AplusCurator.Models;
 namespace AplusCurator.Migrations.GuardianDb
 {
     [DbContext(typeof(GuardianDbContext))]
-    partial class GuardianDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161209085813_RelationModel")]
+    partial class RelationModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")

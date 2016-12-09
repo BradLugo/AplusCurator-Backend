@@ -8,9 +8,10 @@ using AplusCurator.Models;
 namespace AplusCurator.Migrations.GuardianDb
 {
     [DbContext(typeof(GuardianDbContext))]
-    partial class GuardianDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161209065338_InvoiceUpdate")]
+    partial class InvoiceUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -93,20 +94,6 @@ namespace AplusCurator.Migrations.GuardianDb
                     b.HasKey("InvoiceId");
 
                     b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("AplusCurator.Models.StudentRelation", b =>
-                {
-                    b.Property<int>("relationId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("guardianId");
-
-                    b.Property<int>("studentId");
-
-                    b.HasKey("relationId");
-
-                    b.ToTable("Relations");
                 });
         }
     }
