@@ -116,6 +116,279 @@ namespace AplusCurator.Tests.Controllers
             }
         }
 
+        [Fact]
+        public void CanUpdateStudentFirstNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.FirstName = "RadBrad";
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("RadBrad").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.FirstName == "RadBrad");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentLastNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.LastName = "Unlucky";
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.LastName == "Unlucky");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentDateOfBirthBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                DateTime newbirth = DateTime.Now;
+                result.DateOfBirth = newbirth;
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.DateOfBirth == newbirth);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentGenderFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 0,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.Gender = 1;
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Gender == 1);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentCurrentGradeFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.CurrentGrade = 7;
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.CurrentGrade == 7);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentDescriptionFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.Description = "Unlucky Student";
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Description == "Unlucky Student");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentStatusFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 2,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.Status = 1;
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Status == 1);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateStudentSystemInfoFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new StudentsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Student
+                {
+                    FirstName = "Test",
+                    LastName = "Body",
+                    DateOfBirth = DateTime.Now,
+                    Gender = 1,
+                    CurrentGrade = 5,
+                    Description = "He's a body Tester.",
+                    Status = 1,
+                    SystemInfo = "Info here"
+                });
+
+                // Assert that the work was completed correctly
+                Student result = controller.GetByName("Test").First();
+                Assert.NotNull(result);
+
+                result.SystemInfo = "New Info here";
+                var results2 = controller.UpdateFromBody(result);
+                Student updatedresult = controller.GetByName("Test").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.SystemInfo == "New Info here");
+            }
+        }
+
         public void CanAddStudentFromForm()
         {
             // Seed the new context on each test to ensure a clean test environment
