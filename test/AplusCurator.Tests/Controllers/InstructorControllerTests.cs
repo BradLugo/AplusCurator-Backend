@@ -132,6 +132,489 @@ namespace AplusCurator.Tests.Controllers
             }
         }
 
+       [Fact]
+        public void CanUpdateInstructorFirstNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.FirstName = "Richard";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Richard").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.FirstName == "Richard");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateInstructorLastNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.LastName = "Tran";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.LastName == "Tran");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorMiddleNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.MiddleName = "Bob";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.MiddleName == "Bob");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorAddressFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.Address = "123 Rocky Road";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Address == "123 Rocky Road");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorEmailFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.Email = "spicytaco@theborder.com";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Email == "spicytaco@theborder.com");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorPhoneNumberFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "2108675309"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.PhoneNumber = "2104936336";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.PhoneNumber == "2104936336");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorMobileFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.MobilePhoneNumber = "1111111111";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.MobilePhoneNumber == "1111111111");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorEmergencyNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.EmergencyContactName = "Tranwreck";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.EmergencyContactName == "Tranwreck");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorEmergencyPhoneFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.EmergencyContactPhone = "1597531597";
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.EmergencyContactPhone == "1597531597");
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorRoleFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.Role = 1;
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Role == 1);
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorStatusFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                result.Status = 1;
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.Status == 1);
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorEmploymentStartFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                DateTime newhire = DateTime.Now;
+                result.EmploymentStartDate = newhire;
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.EmploymentStartDate == newhire);
+            }
+        }
+
+         [Fact]
+        public void CanUpdateInstructorEmploymentEndFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new InstructorsController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody( new Instructor { FirstName = "Atest"
+                    , LastName = "This"
+                    , MiddleName = "Isa"
+                    , Address = "1234 A Valid Address Rd"
+                    , Email = "notarealemail@notarealdomain.com"
+                    , PhoneNumber = "1234567890"
+                    , MobilePhoneNumber = "1234567890"
+                    , EmergencyContactName = "Random"
+                    , EmergencyContactPhone = "9119119119"
+                    , Role = 0
+                    , Status = 0
+                    , EmploymentStartDate = DateTime.Now
+                    , EmploymentTerminationDate = DateTime.Now } );
+
+                // Assert that the work was completed correctly
+                Instructor result = controller.GetByName("Atest").First();
+                Assert.NotNull(result);
+
+                DateTime fired = DateTime.Now;
+                result.EmploymentTerminationDate = fired;
+                var results2 = controller.UpdateFromBody(result);
+
+                Instructor updatedresult = controller.GetByName("Atest").First();
+                Assert.NotNull(results2);
+                Assert.True(updatedresult.EmploymentTerminationDate == fired);
+            }
+        }
+
         [Fact]
         public void CanAddInstructorFromForm()
         {
