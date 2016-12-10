@@ -42,7 +42,6 @@ namespace AplusCurator.Models
         }
 
         public string RawQuestionScoreList { get; set; }
-
         [NotMapped]
         public int[] QuestionScoreData
         {

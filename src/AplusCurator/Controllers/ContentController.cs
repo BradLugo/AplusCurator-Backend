@@ -21,27 +21,76 @@ namespace AplusCurator.Controllers
             this._student_context = student_context;
         }
 
-        [HttpPost("learningplan/body/create")]
-        public IActionResult CreateLearningplanFromBody([FromBody]Learningplan learningplan)
+        [HttpGet("students/id/{id}/learningplans")]
+        public IEnumerable<Learningplan> GetLearningplanByStudentId(int id)
         {
-            return CreateLearningplan(learningplan);
+            return _context.Learningplans.Where(m => m.StudentId == id);
+        }
+
+        [HttpGet("learningplans/id/{id}/assignments")]
+        public IEnumerable<Assignment> GetAssignmentsByLearningplanId(int id)
+        {
+            return _context.Assignments.Where(m => m.LearningplanId == id);
+        }
+
+
+        [HttpGet("students/id/{id}/assessments")]
+        public IEnumerable<Assessment> GetAssessmentsByStudentId(int id)
+        {
+            return _context.Assessments.Where(m => m.StudentId == id);
+        }
+
+        [HttpPost("learningplan/body/create")]
+        public IActionResult CreateLearningplanFromBody([FromBody]Assessment assessment)
+        {
+            return CreateLearningplan(assessment);
         }
 
         [HttpPost("learningplan/form/create")]
-        public IActionResult CreateLearningplanFromForm(Learningplan learningplan)
+        public IActionResult CreateLearningplanFromForm(Assessment assessment)
         {
-            return CreateLearningplan(learningplan);
+            return CreateLearningplan(assessment);
         }
         
-        private JsonResult CreateLearningplan(Learningplan learningplan)
+        private IActionResult CreateLearningplan(Assessment assessment)
         {
-            // Create the learning plan object here
-            if (ModelState.IsValid)
+
+            Learningplan lp = new Learningplan();
+            lp.AssessmentId = assessment.AssessmentId;
+            lp.StudentId = assessment.StudentId;
+            lp.DateCreated = DateTime.Now;
+
+            // Validate assessment
+
+            _context.Add(lp);
+            _context.SaveChanges();
+
+            // Generate assignments
+
+            var scoresAndTopics = assessment.QuestionScoreData.Zip(assessment.QuestionTopicData, (scores, topics) => new int[] { scores, topics });
+            foreach (var scoreAndTopic in scoresAndTopics)
             {
-                ValidateLearningplan(learningplan);
-                _context.Learningplans.Add(learningplan);
+                if (scoreAndTopic[0] < 4)
+                {
+                    _context.Add(new Assignment
+                    {
+                        LearningplanId = lp.LearningplanId,
+                        AssignedPagesData = new int[] { 1, 2, 3, 4, 5, 6, 7 },
+                        SectionId = scoreAndTopic[1]
+                    });
+                }
+                else if (scoreAndTopic[0] < 2)
+                {
+                    _context.Add(new Assignment
+                    {
+                        LearningplanId = lp.LearningplanId,
+                        AssignedPagesData = new int[] { 1, 2, 6, 7 },
+                        SectionId = scoreAndTopic[1]
+                    });
+                }
             }
-            return Json(learningplan);
+            _context.SaveChanges();
+            return Json(lp);
         }
 
         private void ValidateLearningplan(Learningplan learningplan)
