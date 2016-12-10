@@ -21,7 +21,7 @@ namespace AplusCurator.Controllers
             this._student_context = StudentContext;
         }
 
-        // GET: api/student
+        // GET: api/guardians
         [HttpGet]
         public IEnumerable<Guardian> Get()
         {
@@ -86,6 +86,52 @@ namespace AplusCurator.Controllers
                _guardian_context.SaveChanges();
             }
             return Json(guardian);
+        }
+
+        /// <summary>
+        /// Method used by the Create and CreateFromBody methods to add an Guardian to 
+        /// the Database
+        /// </summary>
+        /// <param name="guardian"></param>
+        /// <returns></returns>
+        private IActionResult UpdateGuardian(Guardian guardian)
+        {
+            if (ModelState.IsValid && guardian != null)
+            {
+                _guardian_context.Update(guardian);
+                _guardian_context.SaveChanges();
+            }
+            return Json(guardian);
+        }
+
+        /// <summary>
+        /// http post request for creating a new guardian object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses a json body
+        /// </summary>
+        /// <param name="guardian"></param>
+        /// <returns></returns>
+        /// Body must be a single guardian json object
+        /// POST api/student/create
+        [HttpPost("body/update")]
+        public IActionResult UpdateFromBody([FromBody]Guardian guardian)
+        {
+            return UpdateGuardian(guardian);
+        }
+
+        /// <summary>
+        /// http post request for creating a new guardian object in the database
+        /// this method is one way to reach the creation method and is used to expose
+        /// a route that uses form data
+        /// </summary>
+        /// <param name="guardian"></param>
+        /// <returns></returns>
+        /// Data must be from a form request
+        /// POST api/student/create
+        [HttpPost("form/update")]
+        public IActionResult UpdateFromForm(Guardian guardian)
+        {
+            return UpdateGuardian(guardian);
         }
 
         /// <summary>
@@ -191,6 +237,12 @@ namespace AplusCurator.Controllers
             return _guardian_context.Invoices.Where(m => m.DueAmount > m.PaidAmount);
         }
 
+
+        [HttpGet("id/{id}/students")]
+        public IEnumerable<Student> GetStudentsUnderGuardian(int id)
+        {
+            return getStudentsUnderGuardian(id);
+        }
 
         [HttpPost("payments/generate")]
         public IEnumerable<Invoice> GenerateMonthyInvoices()

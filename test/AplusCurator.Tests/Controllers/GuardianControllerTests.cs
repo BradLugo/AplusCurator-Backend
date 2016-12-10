@@ -136,6 +136,450 @@ namespace AplusCurator.Tests.Controllers
         }
 
         [Fact]
+        public void CanUpdateGuardianFirstNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.FirstName = "Dragonsquire";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Dragonsquire").First();
+                Assert.True(galaxy.FirstName == "Dragonsquire");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianLastNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.LastName = "Dragonwing";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.LastName == "Dragonwing");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianAddressFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Address = "123 Misty Mountain";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Address == "123 Misty Mountain");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianEmailFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Email = "power@incarnate.com";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Email == "power@incarnate.com");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianPhoneNumberFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.PhoneNumber = "6666666665";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.PhoneNumber == "6666666665");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianMobileFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.MobileNumber = "7777777777";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.MobileNumber == "7777777777");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianRoleFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Role = 1;
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Role == 1);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianContactNameFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.ContactName = "Ysera";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.ContactName == "Ysera");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianContactNumberFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.ContactNumber = "8888888888";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.ContactNumber == "8888888888");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianStatusFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Status = 2;
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Status == 2);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianDescriptionFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Description = "An ex dragon lord";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Description == "An ex dragon lord");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianSystemInfoFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.SystemInfo = "System info goes here";
+                var results2 = controller.UpdateFromBody(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.SystemInfo == "System info goes here");
+            }
+        }
+
+        [Fact]
         public void CanAddGuardianFromForm()
         {
             // Seed the new context on each test to ensure a clean test environment
@@ -164,6 +608,520 @@ namespace AplusCurator.Tests.Controllers
                 // Assert that the work was completed correctly
                 Guardian result = controller.GetByName("Deathwing").First();
                 Assert.NotNull(result);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianFirstNameFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.FirstName = "Dragonsquire";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Dragonsquire").First();
+                Assert.True(galaxy.FirstName == "Dragonsquire");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianLastNameFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.LastName = "Dragonwing";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.LastName == "Dragonwing");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianAddressFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Address = "123 Misty Mountain";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Address == "123 Misty Mountain");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianEmailFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Email = "power@incarnate.com";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Email == "power@incarnate.com");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianPhoneNumberFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.PhoneNumber = "6666666665";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.PhoneNumber == "6666666665");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianMobileFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.MobileNumber = "7777777777";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.MobileNumber == "7777777777");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianRoleFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Role = 1;
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Role == 1);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianContactNameFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.ContactName = "Ysera";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.ContactName == "Ysera");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianContactNumberFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.ContactNumber = "8888888888";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.ContactNumber == "8888888888");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianStatusFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Status = 2;
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Status == 2);
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianDescriptionFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.Description = "An ex dragon lord";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.Description == "An ex dragon lord");
+            }
+        }
+
+        [Fact]
+        public void CanUpdateGuardianSystemInfoFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                result.SystemInfo = "System info goes here";
+                var results2 = controller.UpdateFromForm(result);
+                Guardian galaxy = controller.GetByName("Deathwing").First();
+                Assert.True(galaxy.SystemInfo == "System info goes here");
+            }
+        }
+
+        [Fact]
+        public void CanDeleteGuardianFromBody()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromBody(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromBody(result);
+                Assert.Empty(controller.GetByName("Deathwing"));
+            }
+        }
+
+        [Fact]
+        public void CanDeleteGuardianFromForm()
+        {
+            // Seed the new context on each test to ensure a clean test environment
+            _context = CreateAndSeedContext();
+
+            // New up the controller
+            using (var controller = new GuardiansController(_context))
+            {
+                // Perform some work in here
+                var results = controller.CreateFromForm(new Guardian
+                {
+                    FirstName = "Deathwing",
+                    LastName = "Dragonlord",
+                    Address = "12 Space",
+                    Email = "wingeddeath@gmail.com",
+                    PhoneNumber = "7531598520",
+                    MobileNumber = "00000000000",
+                    Role = 9,
+                    ContactName = "Francis",
+                    ContactNumber = "6666666668",
+                    Status = 1,
+                    Description = "A dragon lord",
+                    SystemInfo = "Random stuff"
+                });
+
+                // Assert that the work was completed correctly
+                Guardian result = controller.GetByName("Deathwing").First();
+                Assert.NotNull(result);
+
+                controller.DeleteFromForm(result);
+                Assert.Empty(controller.GetByName("Deathwing"));
             }
         }
         #endregion
