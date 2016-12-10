@@ -98,8 +98,8 @@ namespace AplusCurator.Controllers
         {
             if (ModelState.IsValid && guardian != null)
             {
-                _context.Update(guardian);
-                _context.SaveChanges();
+                _guardian_context.Update(guardian);
+                _guardian_context.SaveChanges();
             }
             return Json(guardian);
         }
