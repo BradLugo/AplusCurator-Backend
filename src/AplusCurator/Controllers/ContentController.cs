@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AplusCurator.Models;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,11 +15,13 @@ namespace AplusCurator.Controllers
     {
         private ContentDbContext _context;
         private StudentDbContext _student_context;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ContentController(ContentDbContext content_context, StudentDbContext student_context)
+        public ContentController(ContentDbContext content_context, StudentDbContext student_context, IHostingEnvironment hostingEnvironment)
         {
             this._context = content_context;
             this._student_context = student_context;
+            this._hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("students/id/{id}/learningplans")]
@@ -91,6 +94,23 @@ namespace AplusCurator.Controllers
             }
             _context.SaveChanges();
             return Json(lp);
+        }
+
+        /// <summary>
+        /// Returns a file base from a given section
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("sections/id/{id}/pdf")]
+        public FileResult GetSectionFilesFromBody(int id)
+        {
+            Section section = _context.Sections.Single(m => m.SectionId == id);
+
+            string filepath = _hostingEnvironment.ContentRootPath + section.PathToPages;
+            string fileName = section.Title + ".pdf";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+
+            return File(fileBytes, "application/x-msdownload", fileName);
         }
 
         private void ValidateLearningplan(Learningplan learningplan)
