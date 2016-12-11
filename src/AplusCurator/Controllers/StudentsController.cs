@@ -202,15 +202,6 @@ namespace AplusCurator.Controllers
             return currentStudents;
         }
 
-        [HttpGet("student/id/{id}/attendance")]
-        public IEnumerable<StudentAttendance> GetAttendanceByStudentId(int id)
-        {
-            List<StudentAttendance> attendances = _context.StudentsAttendance.Where(m => m.StudentId == id).ToList();
-            attendances.OrderBy(m => m.AttendanceDate);
-
-            return attendances.Take(10);
-        }
-
         [HttpGet("notcurrent")]
         public IEnumerable<Student> GetStudentsNotCurrentlyIn()
         {

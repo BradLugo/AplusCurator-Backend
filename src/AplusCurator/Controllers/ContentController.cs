@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AplusCurator.Models;
-using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,102 +14,34 @@ namespace AplusCurator.Controllers
     {
         private ContentDbContext _context;
         private StudentDbContext _student_context;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ContentController(ContentDbContext content_context, StudentDbContext student_context, IHostingEnvironment hostingEnvironment)
+        public ContentController(ContentDbContext content_context, StudentDbContext student_context)
         {
             this._context = content_context;
             this._student_context = student_context;
-            this._hostingEnvironment = hostingEnvironment;
-        }
-
-        [HttpGet("students/id/{id}/learningplans")]
-        public IEnumerable<Learningplan> GetLearningplanByStudentId(int id)
-        {
-            return _context.Learningplans.Where(m => m.StudentId == id);
-        }
-
-        [HttpGet("learningplans/id/{id}/assignments")]
-        public IEnumerable<Assignment> GetAssignmentsByLearningplanId(int id)
-        {
-            return _context.Assignments.Where(m => m.LearningplanId == id);
-        }
-
-
-        [HttpGet("students/id/{id}/assessments")]
-        public IEnumerable<Assessment> GetAssessmentsByStudentId(int id)
-        {
-            return _context.Assessments.Where(m => m.StudentId == id);
         }
 
         [HttpPost("learningplan/body/create")]
-        public IActionResult CreateLearningplanFromBody([FromBody]Assessment assessment)
+        public IActionResult CreateLearningplanFromBody([FromBody]Learningplan learningplan)
         {
-            return CreateLearningplan(assessment);
+            return CreateLearningplan(learningplan);
         }
 
         [HttpPost("learningplan/form/create")]
-        public IActionResult CreateLearningplanFromForm(Assessment assessment)
+        public IActionResult CreateLearningplanFromForm(Learningplan learningplan)
         {
-            return CreateLearningplan(assessment);
+            return CreateLearningplan(learningplan);
         }
         
-        private IActionResult CreateLearningplan(Assessment assessment)
+        private JsonResult CreateLearningplan(Learningplan learningplan)
         {
-
-            Learningplan lp = new Learningplan();
-            lp.AssessmentId = assessment.AssessmentId;
-            lp.StudentId = assessment.StudentId;
-            lp.DateCreated = DateTime.Now;
-
-            // Validate assessment
-
-            _context.Add(lp);
-            _context.SaveChanges();
-
-            // Generate assignments
-
-            var scoresAndTopics = assessment.QuestionScoreData.Zip(assessment.QuestionTopicData, (scores, topics) => new int[] { scores, topics });
-            foreach (var scoreAndTopic in scoresAndTopics)
+            // Create the learning plan object here
+            if (ModelState.IsValid)
             {
-                if (scoreAndTopic[0] < 4)
-                {
-                    _context.Add(new Assignment
-                    {
-                        LearningplanId = lp.LearningplanId,
-                        AssignedPagesData = new int[] { 1, 2, 3, 4, 5, 6, 7 },
-                        SectionId = scoreAndTopic[1]
-                    });
-                }
-                else if (scoreAndTopic[0] < 2)
-                {
-                    _context.Add(new Assignment
-                    {
-                        LearningplanId = lp.LearningplanId,
-                        AssignedPagesData = new int[] { 1, 2, 6, 7 },
-                        SectionId = scoreAndTopic[1]
-                    });
-                }
+                ValidateLearningplan(learningplan);
+                _context.Learningplans.Add(learningplan);
             }
-            _context.SaveChanges();
-            return Json(lp);
-        }
-
-        /// <summary>
-        /// Returns a file base from a given section
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("sections/id/{id}/pdf")]
-        public FileResult GetSectionFilesFromBody(int id)
-        {
-            Section section = _context.Sections.Single(m => m.SectionId == id);
-
-            string filepath = _hostingEnvironment.ContentRootPath + section.PathToPages;
-            string fileName = section.Title + ".pdf";
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-
-            return File(fileBytes, "application/x-msdownload", fileName);
+            return Json(learningplan);
         }
 
         private void ValidateLearningplan(Learningplan learningplan)

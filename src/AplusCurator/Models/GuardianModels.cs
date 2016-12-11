@@ -10,7 +10,7 @@ namespace AplusCurator.Models
         public int GuardianId { get; set; }
 
         [Column(TypeName = "Date")]
-        public DateTime? MostRecentPayement { get; set; }
+        public DateTime MostRecentPayement { get; set; }
 
         [StringLength(127), Required]
         [RegularExpression(@"^[A-Za-z]+")]
