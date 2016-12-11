@@ -202,7 +202,7 @@ namespace AplusCurator.Controllers
             return currentStudents;
         }
 
-        [HttpGet("student/id/{id}/attendance")]
+        [HttpGet("id/{id}/attendance")]
         public IEnumerable<StudentAttendance> GetAttendanceByStudentId(int id)
         {
             List<StudentAttendance> attendances = _context.StudentsAttendance.Where(m => m.StudentId == id).ToList();
