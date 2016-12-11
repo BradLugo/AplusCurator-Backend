@@ -251,7 +251,6 @@ namespace AplusCurator.Controllers
                 return _guardian_context.Invoices.Where(m => m.DueDate.Month == month && m.DueDate.Year == year).Sum(m => m.DueAmount);
             else
                 return _guardian_context.Invoices.Where(m => m.DueDate.Year == year).Sum(m => m.DueAmount);
-            return _guardian_context.Invoices.Sum(m => m.DueAmount);
         }
 
         [HttpGet("payments/due")]
