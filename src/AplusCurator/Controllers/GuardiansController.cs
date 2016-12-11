@@ -98,8 +98,8 @@ namespace AplusCurator.Controllers
         {
             if (ModelState.IsValid && guardian != null)
             {
-                _context.Update(guardian);
-                _context.SaveChanges();
+                _guardian_context.Update(guardian);
+                _guardian_context.SaveChanges();
             }
             return Json(guardian);
         }
@@ -225,10 +225,32 @@ namespace AplusCurator.Controllers
         {
             return _guardian_context.Invoices.Sum(m => m.PaidAmount);
         }
-        [HttpGet("payments/projected")]
-        public double GetTotalProjectedThisMonth()
+
+
+
+        [HttpGet("payments/date/{year}/{month}/{day}/projected/totals")]
+        public double GetProjectedIncomeByYearMonthDay(int year, int month, int day)
         {
-            return _guardian_context.Invoices.Sum(m => m.DueAmount);
+            return GetTotalProjected(year, month, day);
+        }
+        [HttpGet("payments/date/{year}/{month}/projected/totals")]
+        public double GetProjectedIncomeByYearMonth(int year, int month)
+        {
+            return GetTotalProjected(year, month, null);
+        }
+        [HttpGet("payments/date/{year}/projected/totals")]
+        public double GetProjectedIncomeByYear(int year)
+        {
+            return GetTotalProjected(year, null, null);
+        }
+        private double GetTotalProjected(int year, int? month, int? day)
+        {
+            if (day.HasValue)
+                return _guardian_context.Invoices.Where(m => m.DueDate.Day == day && m.DueDate.Month == month && m.DueDate.Year == year).Sum(m => m.DueAmount);
+            else if (month.HasValue)
+                return _guardian_context.Invoices.Where(m => m.DueDate.Month == month && m.DueDate.Year == year).Sum(m => m.DueAmount);
+            else
+                return _guardian_context.Invoices.Where(m => m.DueDate.Year == year).Sum(m => m.DueAmount);
         }
 
         [HttpGet("payments/due")]
