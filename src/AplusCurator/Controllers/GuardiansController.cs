@@ -181,7 +181,7 @@ namespace AplusCurator.Controllers
             return Json(guardian);
         }
 
-        [HttpGet("add/relation/student/{studentid}/guardian/{guardianid}")]
+        [HttpGet("id/{guardianid}/add/student/id/{studentid}")]
         public IActionResult AddStudentToGuardian(int studentid, int guardianid)
         {
             StudentRelation relation = new StudentRelation();
