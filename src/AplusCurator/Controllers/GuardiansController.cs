@@ -220,7 +220,7 @@ namespace AplusCurator.Controllers
                 return _guardian_context.Invoices.Where(m => m.DueDate.Year == year);
         }
 
-        [HttpGet("payments/guardian/id/{id}")]
+        [HttpGet("/id/{id}/invoices")]
         public IEnumerable<Invoice> GetAllInvoicesByGuardian(int id)
         {
             return _guardian_context.Invoices.Where(m => m.GuardianId == id);
