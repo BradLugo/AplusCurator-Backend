@@ -25,9 +25,9 @@ namespace AplusCurator.Controllers
         }
 
         [HttpGet("students/id/{id}/learningplans")]
-        public IEnumerable<Learningplan> GetLearningplanByStudentId(int id)
+        public JsonResult GetLearningplanByStudentId(int id)
         {
-            return _context.Learningplans.Where(m => m.StudentId == id);
+            return Json(_context.Learningplans.Where(m => m.StudentId == id).First().LearningplanId);
         }
 
         [HttpGet("learningplans/id/{id}/assignments")]
