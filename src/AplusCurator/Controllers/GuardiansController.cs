@@ -241,17 +241,17 @@ namespace AplusCurator.Controllers
 
 
 
-        [HttpGet("payments/date/{year}/{month}/{day}/projected/totals")]
+        [HttpGet("payments/date/{year}/{month}/{day}/projected")]
         public double GetProjectedIncomeByYearMonthDay(int year, int month, int day)
         {
             return GetTotalProjected(year, month, day);
         }
-        [HttpGet("payments/date/{year}/{month}/projected/totals")]
+        [HttpGet("payments/date/{year}/{month}/projected")]
         public double GetProjectedIncomeByYearMonth(int year, int month)
         {
             return GetTotalProjected(year, month, null);
         }
-        [HttpGet("payments/date/{year}/projected/totals")]
+        [HttpGet("payments/date/{year}/projected")]
         public double GetProjectedIncomeByYear(int year)
         {
             return GetTotalProjected(year, null, null);
