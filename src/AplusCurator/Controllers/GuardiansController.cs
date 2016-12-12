@@ -181,6 +181,19 @@ namespace AplusCurator.Controllers
             return Json(guardian);
         }
 
+        [HttpGet("id/{guardianid}/add/student/id/{studentid}")]
+        public IActionResult AddStudentToGuardian(int studentid, int guardianid)
+        {
+            StudentRelation relation = new StudentRelation();
+
+            relation.guardianId = guardianid;
+            relation.studentId = studentid;
+
+            _guardian_context.Add(relation);
+            _guardian_context.SaveChanges();
+
+            return Json(relation);
+        }
 
         [HttpGet("payments/date/{year}/{month}/{day}")]
         public IEnumerable<Invoice> GetAllInvoicesByYearMonthDay(int year, int month, int day)
