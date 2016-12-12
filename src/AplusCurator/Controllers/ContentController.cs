@@ -102,7 +102,7 @@ namespace AplusCurator.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("sections/id/{id}/pdf")]
-        public FileResult GetSectionFilesFromBody(int id)
+        public FileResult GetSectionFile(int id)
         {
             Section section = _context.Sections.Single(m => m.SectionId == id);
 
@@ -111,6 +111,30 @@ namespace AplusCurator.Controllers
             byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
 
             return File(fileBytes, "application/x-msdownload", fileName);
+        }
+
+        [HttpGet("sections/id/{id}/name")]
+        public string GetSectionName(int id)
+        {
+            var section = _context.Sections.Single(m => m.SectionId == id);
+
+            return section.Title;
+        }
+
+        [HttpGet("learningplans/id/{id}/sections")]
+        public IEnumerable<Section> GetSectionsByLearningplan(int id)
+        {
+            Learningplan lp = _context.Learningplans.Single(m => m.LearningplanId == id);
+
+            List<Assignment> assignments = _context.Assignments.Where(m => m.LearningplanId == lp.LearningplanId).ToList();
+
+            List<Section> sections = new List<Section>();
+            foreach (var assignment in assignments)
+            {
+                sections.Add(_context.Sections.Single(m => m.SectionId == assignment.SectionId));
+            }
+
+            return sections;
         }
 
         private void ValidateLearningplan(Learningplan learningplan)
