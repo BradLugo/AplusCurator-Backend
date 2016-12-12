@@ -233,10 +233,29 @@ namespace AplusCurator.Controllers
         }
 
 
-        [HttpGet("payments/collected")]
-        public double GetTotalCollectedThisMonth()
+        [HttpGet("payments/date/{year}/{month}/{day}/collected")]
+        public double GetCollectedIncomeByYearMonthDay(int year, int month, int day)
         {
-            return _guardian_context.Invoices.Sum(m => m.PaidAmount);
+            return GetTotalCollected(year, month, day);
+        }
+        [HttpGet("payments/date/{year}/{month}/collected")]
+        public double GetCollectedIncomeByYearMonth(int year, int month)
+        {
+            return GetTotalCollected(year, month, null);
+        }
+        [HttpGet("payments/date/{year}/collected")]
+        public double GetCollectedIncomeByYear(int year)
+        {
+            return GetTotalCollected(year, null, null);
+        }
+        private double GetTotalCollected(int year, int? month, int? day)
+        {
+            if (day.HasValue)
+                return _guardian_context.Invoices.Where(m => m.DueDate.Day == day && m.DueDate.Month == month && m.DueDate.Year == year).Sum(m => m.PaidAmount);
+            else if (month.HasValue)
+                return _guardian_context.Invoices.Where(m => m.DueDate.Month == month && m.DueDate.Year == year).Sum(m => m.PaidAmount);
+            else
+                return _guardian_context.Invoices.Where(m => m.DueDate.Year == year).Sum(m => m.PaidAmount);
         }
 
 
