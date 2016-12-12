@@ -36,8 +36,7 @@ namespace AplusCurator.Models
         [RegularExpression(@"^[0-9]{10}")]
         public string MobileNumber { get; set; }
 
-        [Required]
-        [Range(0, 3)]
+        [Range(0, 3), Required]
         public int? Role { get; set; }
 
         [StringLength(127), Required]
