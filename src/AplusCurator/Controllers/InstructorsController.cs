@@ -179,6 +179,15 @@ namespace AplusCurator.Controllers
             return Json(instructor);
         }
 
+        [HttpGet("id/{id}/attendance")]
+        public IEnumerable<InstructorAttendance> GetAttendanceByStudentId(int id)
+        {
+            List<InstructorAttendance> attendances = _context.InstructorsAttendance.Where(m => m.InstructorId == id).ToList();
+            attendances.OrderBy(m => m.AttendanceDate);
+
+            return attendances.Take(10);
+        }
+
         [HttpGet("current")]
         public IEnumerable<Instructor> GetInstructorsCurrentlyIn()
         {

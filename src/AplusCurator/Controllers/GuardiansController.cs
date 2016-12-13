@@ -232,7 +232,6 @@ namespace AplusCurator.Controllers
             return _guardian_context.Invoices.Where(m => m.InvoiceId == id);
         }
 
-
         [HttpGet("payments/date/{year}/{month}/{day}/collected")]
         public double GetCollectedIncomeByYearMonthDay(int year, int month, int day)
         {
@@ -257,7 +256,6 @@ namespace AplusCurator.Controllers
             else
                 return _guardian_context.Invoices.Where(m => m.DueDate.Year == year).Sum(m => m.PaidAmount);
         }
-
 
 
         [HttpGet("payments/date/{year}/{month}/{day}/projected")]
